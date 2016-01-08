@@ -71,13 +71,13 @@ public class MainActivity extends Activity {
 		relativeLayout2 = new RelativeLayout(activity);
 		relativeLayout2.setId(1001);
 		relativeLayout2.setBackgroundColor(0xFF010203);
-        RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, convertDpToPixel(65, context));
-		relativeLayout2.setLayoutParams(layoutparams);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, convertDpToPixel(65, context));
+		relativeLayout2.setLayoutParams(layoutParams);
 		relativeLayout.addView(relativeLayout2);
 		
-		RelativeLayout.LayoutParams relativeLayoutLayoutparams = (RelativeLayout.LayoutParams)relativeLayout2.getLayoutParams();
-		relativeLayoutLayoutparams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-		relativeLayout2.setLayoutParams(relativeLayoutLayoutparams);
+		RelativeLayout.LayoutParams relativeLayoutLayoutParams = (RelativeLayout.LayoutParams)relativeLayout2.getLayoutParams();
+		relativeLayoutLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		relativeLayout2.setLayoutParams(relativeLayoutLayoutParams);
 		
 		createTextView3();
 		createImageView3();
@@ -96,13 +96,13 @@ public class MainActivity extends Activity {
 	private void createScrollView2() {
 		scrollView2 = new ScrollView(activity);
 		scrollView2.setBackgroundResource(R.drawable.background_logo);
-		ScrollView.LayoutParams scrollViewLayoutparams = new ScrollView.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-		scrollView2.setLayoutParams(scrollViewLayoutparams);
+		ScrollView.LayoutParams scrollViewLayoutParams = new ScrollView.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+		scrollView2.setLayoutParams(scrollViewLayoutParams);
 		relativeLayout.addView(scrollView2);
 		
-		RelativeLayout.LayoutParams relativeLayoutLayoutparams = (RelativeLayout.LayoutParams)scrollView2.getLayoutParams();
-		relativeLayoutLayoutparams.addRule(RelativeLayout.BELOW, 1001);
-		scrollView2.setLayoutParams(relativeLayoutLayoutparams);
+		RelativeLayout.LayoutParams relativeLayoutLayoutParams = (RelativeLayout.LayoutParams)scrollView2.getLayoutParams();
+		relativeLayoutLayoutParams.addRule(RelativeLayout.BELOW, 1001);
+		scrollView2.setLayoutParams(relativeLayoutLayoutParams);
 		
 		createLinearLayout3();
 	}
@@ -110,62 +110,66 @@ public class MainActivity extends Activity {
 	private void createLinearLayout3() {
 		linearLayout3 = new LinearLayout(activity);
 		linearLayout3.setOrientation(LinearLayout.VERTICAL);
-		LinearLayout.LayoutParams linearLayoutparams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		linearLayout3.setLayoutParams(linearLayoutparams);
+		linearLayout3.setBackgroundColor(0xFFFA5858);
+		LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		linearLayoutParams.setMargins(50, 0, 50, 0);
+		linearLayout3.setLayoutParams(linearLayoutParams);
 		scrollView2.addView(linearLayout3);
-		createLinearLayout4();
-	}
-
-	private void createLinearLayout4() {
-    	Integer linearLayout4_1Number = stringArray.length/3;
+		
+		Integer linearLayout4_1Number = stringArray.length/3;
     	Integer lastImageViewNumber = stringArray.length%3;
 		
 		for (int i = 0; i < linearLayout4_1Number; i++) {
-			createLinearLayout4_1(3);
+			createLinearLayout4(3);
 		}						
 		if (lastImageViewNumber != 0) {
-			createLinearLayout4_1(lastImageViewNumber);
+			createLinearLayout4(lastImageViewNumber);
 		} else {
 			//Do Nothing
 		}
 	}
 	
-	private void createLinearLayout4_1(Integer imageViewNumber) {
-		LinearLayout linearLayout4_1 = new LinearLayout(activity);
-		LinearLayout.LayoutParams layoutparams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		linearLayout4_1.setOrientation(LinearLayout.HORIZONTAL);
-		linearLayout4_1.setLayoutParams(layoutparams);
-		linearLayout3.addView(linearLayout4_1);
+	private void createLinearLayout4(Integer imageViewNumber) {
+		LinearLayout linearLayout4 = new LinearLayout(activity);
+		linearLayout4.setBackgroundResource(R.drawable.shape_g);
+		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 300);
+		linearLayout4.setOrientation(LinearLayout.HORIZONTAL);
+		linearLayout4.setLayoutParams(layoutParams);
+		linearLayout3.addView(linearLayout4);
+		
 		for (int i = 0; i < imageViewNumber; i++) {
-			createImageView(linearLayout4_1, i);
+			createImageView(linearLayout4, i);
 		}
 	}
 	
 	private void createImageView(LinearLayout linearLayout1_1, Integer position) {
 		RelativeLayout relativeLayout = new RelativeLayout(activity);
+		relativeLayout.setBackgroundResource(R.drawable.shape_b);
 		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		layoutParams.width = getImageViewWidth(getScreenWidth());
+		layoutParams.height = getImageViewWidth(getScreenWidth());
 		layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 		relativeLayout.setLayoutParams(layoutParams);
 		ImageView imageView = new ImageView(activity);
 		switch (position) {
 		case 0:
-			imageView.setBackgroundResource(R.drawable.shape_b);
+			imageView.setBackgroundResource(R.drawable.shape_r);
 			break;
 		case 1:
-			imageView.setBackgroundResource(R.drawable.shape_b);
+			imageView.setBackgroundResource(R.drawable.shape_r);
 			break;
 		case 2:
-			imageView.setBackgroundResource(R.drawable.shape_b);
+			imageView.setBackgroundResource(R.drawable.shape_r);
 			break;
 		default:
 			break;
 		}
 		relativeLayout.addView(imageView);
-		RelativeLayout.LayoutParams imageViewLayoutparams = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
-    	imageViewLayoutparams.width = getImageViewWidth(getScreenWidth());
-    	imageViewLayoutparams.height = getImageViewWidth(getScreenWidth());
-    	imageViewLayoutparams.setMargins(10, 10, 10, 10);
-    	imageView.setLayoutParams(imageViewLayoutparams);
+		RelativeLayout.LayoutParams imageViewLayoutParams = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
+    	imageViewLayoutParams.width = 150;
+    	imageViewLayoutParams.height = 150;
+    	imageViewLayoutParams.setMargins(10, 10, 10, 10);
+    	imageView.setLayoutParams(imageViewLayoutParams);
 //    	imageView.setOnClickListener(getImageViewOnClickListener(itemNumbers));
     	imageView.setOnTouchListener(getImageViewOnTouchListener(itemNumbers, imageView));
     	
