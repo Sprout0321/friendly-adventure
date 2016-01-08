@@ -2,6 +2,7 @@ package tw.com.ecomuniversal.ecomtest5;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -17,12 +18,12 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-
 public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
 	private Activity activity = this;
 	private Context context = this;
-    private ScrollView scrollView;
+	private RelativeLayout relativeLayout, relativeLayout2;
+    private ScrollView scrollView2;
     private final String[] stringArray = {"設定","b","c","d","e","f","g","h","i","j",
 			"k","l","m","n","o","p","q","r","s","t",
 			"u","v","w","x","y","z"};
@@ -32,7 +33,10 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        relativeLayout = new RelativeLayout(activity);
+        RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+		relativeLayout.setLayoutParams(layoutparams);
+        setContentView(relativeLayout);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         setupViewComponent();
     }
@@ -57,29 +61,75 @@ public class MainActivity extends Activity {
     }
     
     private void setupViewComponent() {
-    	scrollView = (ScrollView) activity.findViewById(R.id.activity_main_scroll_view);
-    	createLinearLayout1(stringArray);
+//    	scrollView = (ScrollView) activity.findViewById(R.id.activity_main_scroll_view);
+    	createRelativeLayout2();
+    	createScrollView2();
 	}
     
-    private void createLinearLayout1(String[] stringArray) {
-    	Integer LinearLayout1_1Number = stringArray.length/3;
+	private void createRelativeLayout2() {
+		relativeLayout2 = new RelativeLayout(activity);
+		relativeLayout2.setId(1001);
+		relativeLayout2.setBackgroundColor(0xFF010203);
+        RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, convertDpToPixel(65, context));
+		relativeLayout2.setLayoutParams(layoutparams);
+		relativeLayout.addView(relativeLayout2);
+		
+		RelativeLayout.LayoutParams relativeLayoutLayoutparams = (RelativeLayout.LayoutParams)relativeLayout2.getLayoutParams();
+		relativeLayoutLayoutparams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		relativeLayout2.setLayoutParams(relativeLayoutLayoutparams);
+		
+		createTextView3();
+		createImageView3();
+	}
+
+	private void createTextView3() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void createImageView3() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void createScrollView2() {
+		scrollView2 = new ScrollView(activity);
+		scrollView2.setBackgroundResource(R.drawable.background_logo);
+		ScrollView.LayoutParams scrollViewLayoutparams = new ScrollView.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+		scrollView2.setLayoutParams(scrollViewLayoutparams);
+		relativeLayout.addView(scrollView2);
+		
+		RelativeLayout.LayoutParams relativeLayoutLayoutparams = (RelativeLayout.LayoutParams)scrollView2.getLayoutParams();
+		relativeLayoutLayoutparams.addRule(RelativeLayout.BELOW, 1001);
+		scrollView2.setLayoutParams(relativeLayoutLayoutparams);
+		
+		createLinearLayout3();
+	}
+	
+	private void createLinearLayout3() {
+		// TODO Auto-generated method stub
+//		createLinearLayout4();
+	}
+
+	private void createLinearLayout4() {
+    	Integer linearLayout4_1Number = stringArray.length/3;
     	Integer lastImageViewNumber = stringArray.length%3;
 		LinearLayout linearLayout1 = new LinearLayout(activity);
 		LinearLayout.LayoutParams layoutparams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		linearLayout1.setOrientation(LinearLayout.VERTICAL);
 		linearLayout1.setLayoutParams(layoutparams);
-		scrollView.addView(linearLayout1);
-		for (int i = 0; i < LinearLayout1_1Number; i++) {
-			createLinearLayout1_1(linearLayout1, 3);
+		scrollView2.addView(linearLayout1);
+		for (int i = 0; i < linearLayout4_1Number; i++) {
+			createLinearLayout4_1(linearLayout1, 3);
 		}						
 		if (lastImageViewNumber != 0) {
-			createLinearLayout1_1(linearLayout1, lastImageViewNumber);
+			createLinearLayout4_1(linearLayout1, lastImageViewNumber);
 		} else {
 			//Do Nothing
 		}
 	}
 	
-	private void createLinearLayout1_1(LinearLayout linearLayout1, Integer imageViewNumber) {
+	private void createLinearLayout4_1(LinearLayout linearLayout1, Integer imageViewNumber) {
 		LinearLayout linearLayout1_1 = new LinearLayout(activity);
 		LinearLayout.LayoutParams layoutparams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		linearLayout1_1.setOrientation(LinearLayout.HORIZONTAL);
@@ -194,6 +244,13 @@ public class MainActivity extends Activity {
 	private Integer getImageViewWidth(Integer screenWidth) {
 		Integer imageViewWidth = (screenWidth - 80)/3; 
 		return imageViewWidth;
+	}
+	
+	private static Integer convertDpToPixel(Integer dp, Context context){
+	    Resources resources = context.getResources();
+	    DisplayMetrics metrics = resources.getDisplayMetrics();
+	    Integer px = dp * (metrics.densityDpi / 160);
+	    return px;
 	}
     
 }
