@@ -23,6 +23,7 @@ public class MainActivity extends Activity {
 	private Activity activity = this;
 	private Context context = this;
 	private RelativeLayout relativeLayout, relativeLayout2;
+	private LinearLayout linearLayout3;
     private ScrollView scrollView2;
     private final String[] stringArray = {"設定","b","c","d","e","f","g","h","i","j",
 			"k","l","m","n","o","p","q","r","s","t",
@@ -107,36 +108,36 @@ public class MainActivity extends Activity {
 	}
 	
 	private void createLinearLayout3() {
-		// TODO Auto-generated method stub
-//		createLinearLayout4();
+		linearLayout3 = new LinearLayout(activity);
+		linearLayout3.setOrientation(LinearLayout.VERTICAL);
+		LinearLayout.LayoutParams linearLayoutparams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		linearLayout3.setLayoutParams(linearLayoutparams);
+		scrollView2.addView(linearLayout3);
+		createLinearLayout4();
 	}
 
 	private void createLinearLayout4() {
     	Integer linearLayout4_1Number = stringArray.length/3;
     	Integer lastImageViewNumber = stringArray.length%3;
-		LinearLayout linearLayout1 = new LinearLayout(activity);
-		LinearLayout.LayoutParams layoutparams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		linearLayout1.setOrientation(LinearLayout.VERTICAL);
-		linearLayout1.setLayoutParams(layoutparams);
-		scrollView2.addView(linearLayout1);
+		
 		for (int i = 0; i < linearLayout4_1Number; i++) {
-			createLinearLayout4_1(linearLayout1, 3);
+			createLinearLayout4_1(3);
 		}						
 		if (lastImageViewNumber != 0) {
-			createLinearLayout4_1(linearLayout1, lastImageViewNumber);
+			createLinearLayout4_1(lastImageViewNumber);
 		} else {
 			//Do Nothing
 		}
 	}
 	
-	private void createLinearLayout4_1(LinearLayout linearLayout1, Integer imageViewNumber) {
-		LinearLayout linearLayout1_1 = new LinearLayout(activity);
+	private void createLinearLayout4_1(Integer imageViewNumber) {
+		LinearLayout linearLayout4_1 = new LinearLayout(activity);
 		LinearLayout.LayoutParams layoutparams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		linearLayout1_1.setOrientation(LinearLayout.HORIZONTAL);
-		linearLayout1_1.setLayoutParams(layoutparams);
-		linearLayout1.addView(linearLayout1_1);
+		linearLayout4_1.setOrientation(LinearLayout.HORIZONTAL);
+		linearLayout4_1.setLayoutParams(layoutparams);
+		linearLayout3.addView(linearLayout4_1);
 		for (int i = 0; i < imageViewNumber; i++) {
-			createImageView(linearLayout1_1, i);
+			createImageView(linearLayout4_1, i);
 		}
 	}
 	
