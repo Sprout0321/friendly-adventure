@@ -117,7 +117,7 @@ public class MainActivity extends Activity {
     	imageViewLayoutParams.width = 80;
     	imageViewLayoutParams.height = 80;
     	imageView3_1.setLayoutParams(imageViewLayoutParams);
-    	imageView3_1.setOnTouchListener(getImageViewOnTouchListener(1, imageView3_1));
+    	imageView3_1.setOnTouchListener(getImageViewOnTouchListener(-1, imageView3_1));
     	
     	imageView3_2 = new ImageView(activity);
 		imageView3_2.setBackgroundResource(R.drawable.shape_b);
@@ -131,7 +131,7 @@ public class MainActivity extends Activity {
     	imageViewLayoutParams.addRule(RelativeLayout.LEFT_OF, 1002);
 		
     	imageView3_2.setLayoutParams(imageViewLayoutParams);
-    	imageView3_2.setOnTouchListener(getImageViewOnTouchListener(1, imageView3_2));
+    	imageView3_2.setOnTouchListener(getImageViewOnTouchListener(-1, imageView3_2));
 	}
 
 	private void createScrollView2() {
@@ -263,8 +263,12 @@ public class MainActivity extends Activity {
 				case MotionEvent.ACTION_UP:
 					imageView.setBackgroundResource(R.drawable.shape_b);
 					Log.d(TAG + " > getImageViewOnTouchListener()", "action 是 ACTION_UP");
-					FavoriteMethod.useToast(context, stringArray[itemNumbers]);
-					setImageViewListener(itemNumbers);
+					if (itemNumbers < 0) {
+						// Do NOthing
+					} else {
+						FavoriteMethod.useToast(context, stringArray[itemNumbers]);
+						setImageViewListener(itemNumbers);
+					}
 					break;
 				case MotionEvent.ACTION_CANCEL:
 					imageView.setBackgroundResource(R.drawable.shape_b);
