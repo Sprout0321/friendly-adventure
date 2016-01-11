@@ -19,7 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class ContectActivity extends Activity {
 	private static final String TAG = "MainActivity";
 	private Activity activity = this;
 	private Context context = this;
@@ -27,7 +27,8 @@ public class MainActivity extends Activity {
 	private RelativeLayout relativeLayout, relativeLayout2, relativeLayout5;
 	private LinearLayout linearLayout3, linearLayout4;
 	private ImageView imageView3_1, imageView3_2, imageView6;
-	private TextView textView3, textView6;
+	private TextView textView3, textView3_2, textView6;
+	private String receiveString;
     private final String[] stringArray = {"設定","b","c","d","e","f","g","h","i","j",
 			"k","l","m","n","o","p","q","r","s","t",
 			"u","v","w","x","y","z"};
@@ -37,17 +38,12 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String firstTime = SharedPreferencesManager.getFirstTime(context);
-        if (firstTime.matches("true")) {
-			FavoriteMethod.changeView(activity, SettingActivity.class);
-		} else {
-			// Do Nothing
-		}
         relativeLayout = new RelativeLayout(activity);
         RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         relativeLayout.setLayoutParams(layoutparams);
         setContentView(relativeLayout);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        receiveString = IntentBundleManager.receiveOnContectActivity(activity);
         setupViewComponent();
     }
 
@@ -89,11 +85,12 @@ public class MainActivity extends Activity {
 		
 		createTextView3();
 		createImageView3();
+		createTextView3_2();
 	}
 
 	private void createTextView3() {
 		textView3 = new TextView(activity);
-    	textView3.setText("HomePage");
+    	textView3.setText("InsidePage");
     	textView3.setTextSize(30f);
     	textView3.setTextColor(0xFFF1F2F3);
     	textView3.setGravity(Gravity.CENTER);
@@ -101,7 +98,7 @@ public class MainActivity extends Activity {
     	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView3.getLayoutParams();
     	textViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
     	textViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
-    	textViewLayoutParams.setMargins(50, 0, 0, 0);
+    	textViewLayoutParams.setMargins(100, 0, 0, 0);
     	textView3.setLayoutParams(textViewLayoutParams);
 	}
 
@@ -112,26 +109,26 @@ public class MainActivity extends Activity {
 		relativeLayout2.addView(imageView3_1);
 		RelativeLayout.LayoutParams imageViewLayoutParams = (RelativeLayout.LayoutParams) imageView3_1.getLayoutParams();
 		imageViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
-		imageViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 1);
+		imageViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
 		imageViewLayoutParams.setMargins(0, 0, 50, 0);
     	imageViewLayoutParams.width = 80;
     	imageViewLayoutParams.height = 80;
     	imageView3_1.setLayoutParams(imageViewLayoutParams);
     	imageView3_1.setOnTouchListener(getImageViewOnTouchListener(1, imageView3_1));
-    	
-    	imageView3_2 = new ImageView(activity);
-		imageView3_2.setBackgroundResource(R.drawable.shape_b);
-		relativeLayout2.addView(imageView3_2);
-		imageViewLayoutParams = (RelativeLayout.LayoutParams) imageView3_2.getLayoutParams();
-		imageViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
-		imageViewLayoutParams.setMargins(0, 0, 50, 0);
-    	imageViewLayoutParams.width = 80;
-    	imageViewLayoutParams.height = 80;
-    	
-    	imageViewLayoutParams.addRule(RelativeLayout.LEFT_OF, 1002);
-		
-    	imageView3_2.setLayoutParams(imageViewLayoutParams);
-    	imageView3_2.setOnTouchListener(getImageViewOnTouchListener(1, imageView3_2));
+	}
+	
+	private void createTextView3_2() {
+		textView3_2 = new TextView(activity);
+		textView3_2.setText("Back");
+		textView3_2.setTextSize(20f);
+		textView3_2.setTextColor(0xFFF1F2F3);
+		textView3_2.setGravity(Gravity.LEFT);
+    	relativeLayout2.addView(textView3_2);
+    	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView3.getLayoutParams();
+    	textViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
+    	textViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
+    	textViewLayoutParams.setMargins(50, 0, 0, 0);
+    	textView3_2.setLayoutParams(textViewLayoutParams);
 	}
 
 	private void createScrollView2() {
@@ -156,95 +153,8 @@ public class MainActivity extends Activity {
 		linearLayout3.setLayoutParams(linearLayoutParams);
 		scrollView2.addView(linearLayout3);
 		
-		Integer linearLayout4_1Number = stringArray.length/3;
-    	Integer lastImageViewNumber = stringArray.length%3;
 		
-		for (int i = 0; i < linearLayout4_1Number; i++) {
-			createLinearLayout4(3);
-		}						
-		if (lastImageViewNumber != 0) {
-			createLinearLayout4(lastImageViewNumber);
-		} else {
-			//Do Nothing
-		}
 	}
-	
-	private void createLinearLayout4(Integer imageViewNumber) {
-		linearLayout4 = new LinearLayout(activity);
-//		linearLayout4.setBackgroundResource(R.drawable.shape_r);
-		linearLayout4.setOrientation(LinearLayout.HORIZONTAL);
-		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-//		layoutParams.setMargins(10, 10, 10, 10);
-		linearLayout4.setLayoutParams(layoutParams);
-		linearLayout3.addView(linearLayout4);
-		
-		for (int i = 0; i < imageViewNumber; i++) {
-			createRelativeLayout5(i);
-		}
-	}
-	
-	private void createRelativeLayout5(Integer position) {
-		relativeLayout5 = new RelativeLayout(activity);
-//		relativeLayout5.setBackgroundResource(R.drawable.shape_g);
-		Integer width = getRelativeLayout5Width(getScreenWidth());
-		Integer height = width * 4/3;
-		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(width, height);
-		relativeLayout5.setLayoutParams(layoutParams);
-		
-		createImageView6(position);
-		createTextView6(position);
-    	
-    	linearLayout4.addView(relativeLayout5);
-	}
-
-	private void createImageView6(Integer position) {
-		imageView6 = new ImageView(activity);
-		switch (position) {
-		case 0:
-			imageView6.setBackgroundResource(R.drawable.shape_b);
-			break;
-		case 1:
-			imageView6.setBackgroundResource(R.drawable.shape_b);
-			break;
-		case 2:
-			imageView6.setBackgroundResource(R.drawable.shape_b);
-			break;
-		default:
-			break;
-		}
-		relativeLayout5.addView(imageView6);
-		RelativeLayout.LayoutParams imageViewLayoutParams = (RelativeLayout.LayoutParams) imageView6.getLayoutParams();
-		imageViewLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
-		imageViewLayoutParams.setMargins(0, 0, 0, 0);
-    	imageViewLayoutParams.width = getImageView6Width(getScreenWidth());
-    	imageViewLayoutParams.height = getImageView6Width(getScreenWidth());
-    	imageView6.setLayoutParams(imageViewLayoutParams);
-    	imageView6.setOnTouchListener(getImageViewOnTouchListener(itemNumbers, imageView6));
-	}
-	
-	private void createTextView6(Integer position) {
-		textView6 = new TextView(activity);
-    	textView6.setText(stringArray[itemNumbers]);
-    	itemNumbers++;
-    	textView6.setTextSize(30f);
-    	textView6.setTextColor(0xFF9FA0FF);
-    	textView6.setGravity(Gravity.CENTER);
-    	relativeLayout5.addView(textView6);
-    	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView6.getLayoutParams();
-    	textViewLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
-    	textViewLayoutParams.setMargins(0, 0, 0, 0);
-    	textView6.setLayoutParams(textViewLayoutParams);
-    	
-	}
-
-//	private ImageView.OnClickListener getImageViewOnClickListener(final Integer itemNumbers) {
-//		ImageView.OnClickListener imageViewOnClickListener = new ImageView.OnClickListener() {
-//			public void onClick(View v) {
-//				FavoriteMethod.useToast(context, stringArray[itemNumbers]);
-//			}
-//		};
-//		return imageViewOnClickListener;
-//	}
 	
 	@SuppressLint("ClickableViewAccessibility")
 	private ImageView.OnTouchListener getImageViewOnTouchListener(final Integer itemNumbers,final ImageView imageView) {
@@ -280,10 +190,17 @@ public class MainActivity extends Activity {
 	}
 	
 	private void setImageViewListener(Integer itemNumbers) {
-		if (itemNumbers == 0) {
-			FavoriteMethod.changeView(activity, SettingActivity.class);			
-		} else {
-			IntentBundleManager.changeViewToContectActivity(activity, itemNumbers.toString());
+		switch (itemNumbers) {
+		case 0:
+			FavoriteMethod.changeView(activity, SettingActivity.class);
+			break;
+		case 1:
+//			FavoriteMethod.changeViewWithBundle(activity, SettingActivity.class, "", "");
+			break;
+		case 2:
+			break;
+		default:
+			break;
 		}
 	}
 	
