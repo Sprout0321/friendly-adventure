@@ -131,7 +131,7 @@ public class MainActivity extends Activity {
 	
 	private void createLinearLayout4(Integer imageViewNumber) {
 		linearLayout4 = new LinearLayout(activity);
-		linearLayout4.setBackgroundResource(R.drawable.shape_r);
+//		linearLayout4.setBackgroundResource(R.drawable.shape_r);
 		linearLayout4.setOrientation(LinearLayout.HORIZONTAL);
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 //		layoutParams.setMargins(10, 10, 10, 10);
@@ -145,7 +145,7 @@ public class MainActivity extends Activity {
 	
 	private void createRelativeLayout5(Integer position) {
 		relativeLayout5 = new RelativeLayout(activity);
-		relativeLayout5.setBackgroundResource(R.drawable.shape_g);
+//		relativeLayout5.setBackgroundResource(R.drawable.shape_g);
 		Integer width = getRelativeLayout5Width(getScreenWidth());
 		Integer height = width * 4/3;
 		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(width, height);
