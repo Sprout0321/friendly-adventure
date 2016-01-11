@@ -13,7 +13,7 @@ public class IntentBundleManager {
 	}
 	
 	public static String receiveOnContectActivity(Activity activity) {
-		String[] bundle_key = {"transferJsonArrayType"};
+		String[] bundle_key = {"transferJsonString"};
 		String[] bundle_value = FavoriteMethod.receiveBundleValue(activity, bundle_key);
 		if (bundle_value[0].equals(DEFAULT)) {
 			bundle_value[0] = null;

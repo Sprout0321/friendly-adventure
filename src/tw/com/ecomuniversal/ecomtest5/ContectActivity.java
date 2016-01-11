@@ -29,9 +29,6 @@ public class ContectActivity extends Activity {
 	private ImageView imageView3_1, imageView3_2, imageView6;
 	private TextView textView3, textView3_2, textView6;
 	private String receiveString;
-    private final String[] stringArray = {"設定","b","c","d","e","f","g","h","i","j",
-			"k","l","m","n","o","p","q","r","s","t",
-			"u","v","w","x","y","z"};
 //    private final String[] stringArray2 = {"1","2"};
     private Integer itemNumbers = 0;
     
@@ -66,6 +63,12 @@ public class ContectActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
     
+    @Override
+	public void onBackPressed() {
+	    super.onBackPressed();
+	    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+	}
+    
     private void setupViewComponent() {
     	createRelativeLayout2();
     	createScrollView2();
@@ -98,7 +101,7 @@ public class ContectActivity extends Activity {
     	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView3.getLayoutParams();
     	textViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
     	textViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
-    	textViewLayoutParams.setMargins(100, 0, 0, 0);
+    	textViewLayoutParams.setMargins(150, 0, 0, 0);
     	textView3.setLayoutParams(textViewLayoutParams);
 	}
 
@@ -110,8 +113,8 @@ public class ContectActivity extends Activity {
 		RelativeLayout.LayoutParams imageViewLayoutParams = (RelativeLayout.LayoutParams) imageView3_1.getLayoutParams();
 		imageViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
 		imageViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
-		imageViewLayoutParams.setMargins(0, 0, 50, 0);
-    	imageViewLayoutParams.width = 80;
+		imageViewLayoutParams.setMargins(20, 0, 0, 0);
+    	imageViewLayoutParams.width = 120;
     	imageViewLayoutParams.height = 80;
     	imageView3_1.setLayoutParams(imageViewLayoutParams);
     	imageView3_1.setOnTouchListener(getImageViewOnTouchListener(1, imageView3_1));
@@ -124,10 +127,10 @@ public class ContectActivity extends Activity {
 		textView3_2.setTextColor(0xFFF1F2F3);
 		textView3_2.setGravity(Gravity.LEFT);
     	relativeLayout2.addView(textView3_2);
-    	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView3.getLayoutParams();
+    	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView3_2.getLayoutParams();
     	textViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
     	textViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
-    	textViewLayoutParams.setMargins(50, 0, 0, 0);
+    	textViewLayoutParams.setMargins(30, 0, 0, 0);
     	textView3_2.setLayoutParams(textViewLayoutParams);
 	}
 
@@ -173,7 +176,7 @@ public class ContectActivity extends Activity {
 				case MotionEvent.ACTION_UP:
 					imageView.setBackgroundResource(R.drawable.shape_b);
 					Log.d(TAG + " > getImageViewOnTouchListener()", "action 是 ACTION_UP");
-					FavoriteMethod.useToast(context, stringArray[itemNumbers]);
+					FavoriteMethod.useToast(context, receiveString);
 					setImageViewListener(itemNumbers);
 					break;
 				case MotionEvent.ACTION_CANCEL:
@@ -190,18 +193,7 @@ public class ContectActivity extends Activity {
 	}
 	
 	private void setImageViewListener(Integer itemNumbers) {
-		switch (itemNumbers) {
-		case 0:
-			FavoriteMethod.changeView(activity, SettingActivity.class);
-			break;
-		case 1:
-//			FavoriteMethod.changeViewWithBundle(activity, SettingActivity.class, "", "");
-			break;
-		case 2:
-			break;
-		default:
-			break;
-		}
+		onBackPressed();
 	}
 	
 	
