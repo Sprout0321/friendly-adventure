@@ -287,7 +287,7 @@ public class MainActivity extends Activity {
 		if (itemNumbers == 0) {
 			FavoriteMethod.changeView(activity, SettingActivity.class);			
 		} else {
-			IntentBundleManager.changeViewToContectActivity(activity, itemNumbers.toString());
+			IntentBundleManager.changeViewToContectActivity(activity, stringArray[itemNumbers]);
 		}
 	}
 	

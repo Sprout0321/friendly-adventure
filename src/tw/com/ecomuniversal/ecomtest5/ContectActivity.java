@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,14 +25,11 @@ public class ContectActivity extends Activity {
 	private Activity activity = this;
 	private Context context = this;
 	private ScrollView scrollView2;
-	private RelativeLayout relativeLayout, relativeLayout2, relativeLayout5;
-	private LinearLayout linearLayout3, linearLayout4;
-	private ImageView imageView3_1, imageView3_2, imageView6;
-	private TextView textView3, textView3_2, textView6;
+	private RelativeLayout relativeLayout, relativeLayout2, relativeLayout3, relativeLayout5;
+	private LinearLayout linearLayout4;
+	private ImageView imageView3_1, imageView3_2, imageView4;
+	private TextView textView3, textView3_2, textView4;
 	private String receiveString;
-    private final String[] stringArray = {"設定","b","c","d","e","f","g","h","i","j",
-			"k","l","m","n","o","p","q","r","s","t",
-			"u","v","w","x","y","z"};
 //    private final String[] stringArray2 = {"1","2"};
     private Integer itemNumbers = 0;
     
@@ -66,6 +64,12 @@ public class ContectActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
     
+    @Override
+	public void onBackPressed() {
+	    super.onBackPressed();
+	    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+	}
+    
     private void setupViewComponent() {
     	createRelativeLayout2();
     	createScrollView2();
@@ -96,9 +100,8 @@ public class ContectActivity extends Activity {
     	textView3.setGravity(Gravity.CENTER);
     	relativeLayout2.addView(textView3);
     	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView3.getLayoutParams();
-    	textViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
-    	textViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
-    	textViewLayoutParams.setMargins(100, 0, 0, 0);
+    	textViewLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
+    	textViewLayoutParams.setMargins(0, 0, 0, 0);
     	textView3.setLayoutParams(textViewLayoutParams);
 	}
 
@@ -110,8 +113,8 @@ public class ContectActivity extends Activity {
 		RelativeLayout.LayoutParams imageViewLayoutParams = (RelativeLayout.LayoutParams) imageView3_1.getLayoutParams();
 		imageViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
 		imageViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
-		imageViewLayoutParams.setMargins(0, 0, 50, 0);
-    	imageViewLayoutParams.width = 80;
+		imageViewLayoutParams.setMargins(20, 0, 0, 0);
+    	imageViewLayoutParams.width = 120;
     	imageViewLayoutParams.height = 80;
     	imageView3_1.setLayoutParams(imageViewLayoutParams);
     	imageView3_1.setOnTouchListener(getImageViewOnTouchListener(1, imageView3_1));
@@ -124,10 +127,10 @@ public class ContectActivity extends Activity {
 		textView3_2.setTextColor(0xFFF1F2F3);
 		textView3_2.setGravity(Gravity.LEFT);
     	relativeLayout2.addView(textView3_2);
-    	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView3.getLayoutParams();
+    	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView3_2.getLayoutParams();
     	textViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
     	textViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
-    	textViewLayoutParams.setMargins(50, 0, 0, 0);
+    	textViewLayoutParams.setMargins(30, 0, 0, 0);
     	textView3_2.setLayoutParams(textViewLayoutParams);
 	}
 
@@ -142,18 +145,43 @@ public class ContectActivity extends Activity {
 		relativeLayoutLayoutParams.addRule(RelativeLayout.BELOW, 1001);
 		scrollView2.setLayoutParams(relativeLayoutLayoutParams);
 		
-		createLinearLayout3();
+		createRelativeLayout3();
 	}
 	
-	private void createLinearLayout3() {
-		linearLayout3 = new LinearLayout(activity);
-		linearLayout3.setOrientation(LinearLayout.VERTICAL);
+	private void createRelativeLayout3() {
+		relativeLayout3 = new RelativeLayout(activity);
+//		relativeLayout3.setOrientation(LinearLayout.VERTICAL);
 //		linearLayout3.setBackgroundColor(0xFFFA5858);
-		LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		linearLayout3.setLayoutParams(linearLayoutParams);
-		scrollView2.addView(linearLayout3);
-		
-		
+		RelativeLayout.LayoutParams linearLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		relativeLayout3.setLayoutParams(linearLayoutParams);
+		createImageView4();
+		createTextView4();
+		scrollView2.addView(relativeLayout3);
+	}
+	
+	private void createImageView4() {
+		imageView4 = new ImageView(activity);
+		imageView4.setBackgroundResource(R.drawable.shape_b);
+		relativeLayout3.addView(imageView4);
+		RelativeLayout.LayoutParams imageViewLayoutParams = (RelativeLayout.LayoutParams) imageView4.getLayoutParams();
+		imageViewLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
+		imageViewLayoutParams.setMargins(0, 50, 0, 0);
+    	imageViewLayoutParams.width = getImageView6Width(getScreenWidth());
+    	imageViewLayoutParams.height = getImageView6Width(getScreenWidth());
+    	imageView4.setLayoutParams(imageViewLayoutParams);
+	}
+	
+	private void createTextView4() {
+		textView4 = new TextView(activity);
+		textView4.setText(Html.fromHtml("<u>"+receiveString+"</u>"));
+		textView4.setTextSize(30f);
+		textView4.setTextColor(0xFFF1F2F3);
+		textView4.setGravity(Gravity.CENTER);
+		relativeLayout3.addView(textView4);
+    	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView4.getLayoutParams();
+    	textViewLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
+    	textViewLayoutParams.setMargins(0, 0, 0, 0);
+    	textView4.setLayoutParams(textViewLayoutParams);
 	}
 	
 	@SuppressLint("ClickableViewAccessibility")
@@ -173,8 +201,7 @@ public class ContectActivity extends Activity {
 				case MotionEvent.ACTION_UP:
 					imageView.setBackgroundResource(R.drawable.shape_b);
 					Log.d(TAG + " > getImageViewOnTouchListener()", "action 是 ACTION_UP");
-					FavoriteMethod.useToast(context, stringArray[itemNumbers]);
-					setImageViewListener(itemNumbers);
+					onBackPressed();
 					break;
 				case MotionEvent.ACTION_CANCEL:
 					imageView.setBackgroundResource(R.drawable.shape_b);
@@ -188,22 +215,6 @@ public class ContectActivity extends Activity {
 		};
 		return imageViewOnTouchListener;
 	}
-	
-	private void setImageViewListener(Integer itemNumbers) {
-		switch (itemNumbers) {
-		case 0:
-			FavoriteMethod.changeView(activity, SettingActivity.class);
-			break;
-		case 1:
-//			FavoriteMethod.changeViewWithBundle(activity, SettingActivity.class, "", "");
-			break;
-		case 2:
-			break;
-		default:
-			break;
-		}
-	}
-	
 	
 	
 	private int getScreenWidth() {
@@ -219,7 +230,7 @@ public class ContectActivity extends Activity {
 	}
 	
 	private Integer getImageView6Width(Integer screenWidth) {
-		Integer imageViewWidth = (screenWidth)/5;
+		Integer imageViewWidth = (screenWidth)/3;
 		return imageViewWidth;
 	}
 	
