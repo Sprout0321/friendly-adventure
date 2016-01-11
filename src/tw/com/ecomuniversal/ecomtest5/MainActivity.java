@@ -1,5 +1,6 @@
 package tw.com.ecomuniversal.ecomtest5;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -25,7 +26,8 @@ public class MainActivity extends Activity {
 	private ScrollView scrollView2;
 	private RelativeLayout relativeLayout, relativeLayout2, relativeLayout5;
 	private LinearLayout linearLayout3, linearLayout4;
-	private ImageView imageView6;
+	private ImageView imageView3_1, imageView3_2, imageView6;
+	private TextView textView3, textView6;
     private final String[] stringArray = {"設定","b","c","d","e","f","g","h","i","j",
 			"k","l","m","n","o","p","q","r","s","t",
 			"u","v","w","x","y","z"};
@@ -35,9 +37,15 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String firstTime = SharedPreferencesManager.getFirstTime(context);
+        if (firstTime.matches("true")) {
+			FavoriteMethod.changeView(activity, SettingActivity.class);
+		} else {
+			// Do Nothing
+		}
         relativeLayout = new RelativeLayout(activity);
         RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-		relativeLayout.setLayoutParams(layoutparams);
+        relativeLayout.setLayoutParams(layoutparams);
         setContentView(relativeLayout);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         setupViewComponent();
@@ -63,7 +71,6 @@ public class MainActivity extends Activity {
     }
     
     private void setupViewComponent() {
-//    	scrollView = (ScrollView) activity.findViewById(R.id.activity_main_scroll_view);
     	createRelativeLayout2();
     	createScrollView2();
 	}
@@ -85,13 +92,46 @@ public class MainActivity extends Activity {
 	}
 
 	private void createTextView3() {
-		// TODO Auto-generated method stub
-		
+		textView3 = new TextView(activity);
+    	textView3.setText("HomePage");
+    	textView3.setTextSize(30f);
+    	textView3.setTextColor(0xFFF1F2F3);
+    	textView3.setGravity(Gravity.CENTER);
+    	relativeLayout2.addView(textView3);
+    	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView3.getLayoutParams();
+    	textViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
+    	textViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
+    	textViewLayoutParams.setMargins(50, 0, 0, 0);
+    	textView3.setLayoutParams(textViewLayoutParams);
 	}
 
 	private void createImageView3() {
-		// TODO Auto-generated method stub
+		imageView3_1 = new ImageView(activity);
+		imageView3_1.setBackgroundResource(R.drawable.shape_b);
+		imageView3_1.setId(1002);
+		relativeLayout2.addView(imageView3_1);
+		RelativeLayout.LayoutParams imageViewLayoutParams = (RelativeLayout.LayoutParams) imageView3_1.getLayoutParams();
+		imageViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
+		imageViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 1);
+		imageViewLayoutParams.setMargins(0, 0, 50, 0);
+    	imageViewLayoutParams.width = 80;
+    	imageViewLayoutParams.height = 80;
+    	imageView3_1.setLayoutParams(imageViewLayoutParams);
+    	imageView3_1.setOnTouchListener(getImageViewOnTouchListener(1, imageView3_1));
+    	
+    	imageView3_2 = new ImageView(activity);
+		imageView3_2.setBackgroundResource(R.drawable.shape_b);
+		relativeLayout2.addView(imageView3_2);
+		imageViewLayoutParams = (RelativeLayout.LayoutParams) imageView3_2.getLayoutParams();
+		imageViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
+		imageViewLayoutParams.setMargins(0, 0, 50, 0);
+    	imageViewLayoutParams.width = 80;
+    	imageViewLayoutParams.height = 80;
+    	
+    	imageViewLayoutParams.addRule(RelativeLayout.LEFT_OF, 1002);
 		
+    	imageView3_2.setLayoutParams(imageViewLayoutParams);
+    	imageView3_2.setOnTouchListener(getImageViewOnTouchListener(1, imageView3_2));
 	}
 
 	private void createScrollView2() {
@@ -183,29 +223,30 @@ public class MainActivity extends Activity {
 	}
 	
 	private void createTextView6(Integer position) {
-		TextView textView = new TextView(activity);
-    	textView.setText(stringArray[itemNumbers]);
+		textView6 = new TextView(activity);
+    	textView6.setText(stringArray[itemNumbers]);
     	itemNumbers++;
-    	textView.setTextSize(30f);
-    	textView.setTextColor(0xFF9FA0FF);
-    	textView.setGravity(Gravity.CENTER);
-    	relativeLayout5.addView(textView);
-    	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView.getLayoutParams();
+    	textView6.setTextSize(30f);
+    	textView6.setTextColor(0xFF9FA0FF);
+    	textView6.setGravity(Gravity.CENTER);
+    	relativeLayout5.addView(textView6);
+    	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView6.getLayoutParams();
     	textViewLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
     	textViewLayoutParams.setMargins(0, 0, 0, 0);
-    	textView.setLayoutParams(textViewLayoutParams);
+    	textView6.setLayoutParams(textViewLayoutParams);
     	
 	}
 
-	private ImageView.OnClickListener getImageViewOnClickListener(final Integer itemNumbers) {
-		ImageView.OnClickListener imageViewOnClickListener = new ImageView.OnClickListener() {
-			public void onClick(View v) {
-				FavoriteMethod.useToast(context, stringArray[itemNumbers]);
-			}
-		};
-		return imageViewOnClickListener;
-	}
+//	private ImageView.OnClickListener getImageViewOnClickListener(final Integer itemNumbers) {
+//		ImageView.OnClickListener imageViewOnClickListener = new ImageView.OnClickListener() {
+//			public void onClick(View v) {
+//				FavoriteMethod.useToast(context, stringArray[itemNumbers]);
+//			}
+//		};
+//		return imageViewOnClickListener;
+//	}
 	
+	@SuppressLint("ClickableViewAccessibility")
 	private ImageView.OnTouchListener getImageViewOnTouchListener(final Integer itemNumbers,final ImageView imageView) {
 		ImageView.OnTouchListener imageViewOnTouchListener = new ImageView.OnTouchListener() {
 			@Override

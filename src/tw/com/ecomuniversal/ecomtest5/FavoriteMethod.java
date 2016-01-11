@@ -17,7 +17,6 @@ import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.widget.Toast;
 
 public class FavoriteMethod {
