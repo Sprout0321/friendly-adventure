@@ -22,9 +22,10 @@ public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
 	private Activity activity = this;
 	private Context context = this;
-	private RelativeLayout relativeLayout, relativeLayout2;
-	private LinearLayout linearLayout3;
-    private ScrollView scrollView2;
+	private ScrollView scrollView2;
+	private RelativeLayout relativeLayout, relativeLayout2, relativeLayout5;
+	private LinearLayout linearLayout3, linearLayout4;
+	private ImageView imageView6;
     private final String[] stringArray = {"設定","b","c","d","e","f","g","h","i","j",
 			"k","l","m","n","o","p","q","r","s","t",
 			"u","v","w","x","y","z"};
@@ -110,9 +111,8 @@ public class MainActivity extends Activity {
 	private void createLinearLayout3() {
 		linearLayout3 = new LinearLayout(activity);
 		linearLayout3.setOrientation(LinearLayout.VERTICAL);
-		linearLayout3.setBackgroundColor(0xFFFA5858);
+//		linearLayout3.setBackgroundColor(0xFFFA5858);
 		LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		linearLayoutParams.setMargins(50, 0, 50, 0);
 		linearLayout3.setLayoutParams(linearLayoutParams);
 		scrollView2.addView(linearLayout3);
 		
@@ -130,62 +130,73 @@ public class MainActivity extends Activity {
 	}
 	
 	private void createLinearLayout4(Integer imageViewNumber) {
-		LinearLayout linearLayout4 = new LinearLayout(activity);
-		linearLayout4.setBackgroundResource(R.drawable.shape_g);
-		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 300);
+		linearLayout4 = new LinearLayout(activity);
+		linearLayout4.setBackgroundResource(R.drawable.shape_r);
 		linearLayout4.setOrientation(LinearLayout.HORIZONTAL);
+		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+//		layoutParams.setMargins(10, 10, 10, 10);
 		linearLayout4.setLayoutParams(layoutParams);
 		linearLayout3.addView(linearLayout4);
 		
 		for (int i = 0; i < imageViewNumber; i++) {
-			createImageView(linearLayout4, i);
+			createRelativeLayout5(i);
 		}
 	}
 	
-	private void createImageView(LinearLayout linearLayout1_1, Integer position) {
-		RelativeLayout relativeLayout = new RelativeLayout(activity);
-		relativeLayout.setBackgroundResource(R.drawable.shape_b);
-		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		layoutParams.width = getImageViewWidth(getScreenWidth());
-		layoutParams.height = getImageViewWidth(getScreenWidth());
-		layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-		relativeLayout.setLayoutParams(layoutParams);
-		ImageView imageView = new ImageView(activity);
+	private void createRelativeLayout5(Integer position) {
+		relativeLayout5 = new RelativeLayout(activity);
+		relativeLayout5.setBackgroundResource(R.drawable.shape_g);
+		Integer width = getRelativeLayout5Width(getScreenWidth());
+		Integer height = width * 4/3;
+		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(width, height);
+		relativeLayout5.setLayoutParams(layoutParams);
+		
+		createImageView6(position);
+		createTextView6(position);
+    	
+    	linearLayout4.addView(relativeLayout5);
+	}
+
+	private void createImageView6(Integer position) {
+		imageView6 = new ImageView(activity);
 		switch (position) {
 		case 0:
-			imageView.setBackgroundResource(R.drawable.shape_r);
+			imageView6.setBackgroundResource(R.drawable.shape_b);
 			break;
 		case 1:
-			imageView.setBackgroundResource(R.drawable.shape_r);
+			imageView6.setBackgroundResource(R.drawable.shape_b);
 			break;
 		case 2:
-			imageView.setBackgroundResource(R.drawable.shape_r);
+			imageView6.setBackgroundResource(R.drawable.shape_b);
 			break;
 		default:
 			break;
 		}
-		relativeLayout.addView(imageView);
-		RelativeLayout.LayoutParams imageViewLayoutParams = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
-    	imageViewLayoutParams.width = 150;
-    	imageViewLayoutParams.height = 150;
-    	imageViewLayoutParams.setMargins(10, 10, 10, 10);
-    	imageView.setLayoutParams(imageViewLayoutParams);
-//    	imageView.setOnClickListener(getImageViewOnClickListener(itemNumbers));
-    	imageView.setOnTouchListener(getImageViewOnTouchListener(itemNumbers, imageView));
-    	
-    	TextView textView = new TextView(activity);
+		relativeLayout5.addView(imageView6);
+		RelativeLayout.LayoutParams imageViewLayoutParams = (RelativeLayout.LayoutParams) imageView6.getLayoutParams();
+		imageViewLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
+		imageViewLayoutParams.setMargins(0, 0, 0, 0);
+    	imageViewLayoutParams.width = getImageView6Width(getScreenWidth());
+    	imageViewLayoutParams.height = getImageView6Width(getScreenWidth());
+    	imageView6.setLayoutParams(imageViewLayoutParams);
+    	imageView6.setOnTouchListener(getImageViewOnTouchListener(itemNumbers, imageView6));
+	}
+	
+	private void createTextView6(Integer position) {
+		TextView textView = new TextView(activity);
     	textView.setText(stringArray[itemNumbers]);
     	itemNumbers++;
     	textView.setTextSize(30f);
     	textView.setTextColor(0xFF9FA0FF);
     	textView.setGravity(Gravity.CENTER);
-    	relativeLayout.addView(textView);
+    	relativeLayout5.addView(textView);
     	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView.getLayoutParams();
     	textViewLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
+    	textViewLayoutParams.setMargins(0, 0, 0, 0);
     	textView.setLayoutParams(textViewLayoutParams);
-    	linearLayout1_1.addView(relativeLayout);
+    	
 	}
-	
+
 	private ImageView.OnClickListener getImageViewOnClickListener(final Integer itemNumbers) {
 		ImageView.OnClickListener imageViewOnClickListener = new ImageView.OnClickListener() {
 			public void onClick(View v) {
@@ -246,8 +257,13 @@ public class MainActivity extends Activity {
 		return screenWidth;
 	}
 	
-	private Integer getImageViewWidth(Integer screenWidth) {
-		Integer imageViewWidth = (screenWidth - 80)/3; 
+	private Integer getRelativeLayout5Width(Integer screenWidth) {
+		Integer imageViewWidth = (screenWidth)/3;
+		return imageViewWidth;
+	}
+	
+	private Integer getImageView6Width(Integer screenWidth) {
+		Integer imageViewWidth = (screenWidth)/5;
 		return imageViewWidth;
 	}
 	
