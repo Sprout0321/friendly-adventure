@@ -284,15 +284,51 @@ public class SettingActivity extends Activity {
 				int action = event.getAction();
 				switch (action) {
 				case MotionEvent.ACTION_DOWN:
-					imageView.setBackgroundResource(R.drawable.shape_g);
+					switch (itemNumbers%3) {
+					case 0:
+						imageView.setBackgroundResource(R.drawable.shape_g);
+						break;
+					case 1:
+						imageView.setBackgroundResource(R.drawable.shape_b);
+						break;
+					case 2:
+						imageView.setBackgroundResource(R.drawable.shape_r);
+						break;
+					default:
+						break;
+					}
 					break;
 				case MotionEvent.ACTION_MOVE:
 					break;
 				case MotionEvent.ACTION_UP:
-					imageView.setBackgroundResource(R.drawable.shape_b);
+					switch (itemNumbers%3) {
+					case 0:
+						imageView.setBackgroundResource(R.drawable.shape_r);
+						break;
+					case 1:
+						imageView.setBackgroundResource(R.drawable.shape_g);
+						break;
+					case 2:
+						imageView.setBackgroundResource(R.drawable.shape_b);
+						break;
+					default:
+						break;
+					}
 					break;
 				case MotionEvent.ACTION_CANCEL:
-					imageView.setBackgroundResource(R.drawable.shape_b);
+					switch (itemNumbers%3) {
+					case 0:
+						imageView.setBackgroundResource(R.drawable.shape_r);
+						break;
+					case 1:
+						imageView.setBackgroundResource(R.drawable.shape_g);
+						break;
+					case 2:
+						imageView.setBackgroundResource(R.drawable.shape_b);
+						break;
+					default:
+						break;
+					}
 					break;
 				default:
 					break;
