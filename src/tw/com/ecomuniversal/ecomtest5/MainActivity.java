@@ -2,8 +2,12 @@ package tw.com.ecomuniversal.ecomtest5;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -13,11 +17,14 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
@@ -33,9 +40,21 @@ public class MainActivity extends Activity {
 			"u","v","w","x","y","z"};
     private Integer itemNumbers = 0;
     
+	// SQLiteDatabase對象
+	SQLiteDatabase db;
+	// 資料庫名
+	public String db_name = "MemorandumSQL";
+	// 表名
+	public String table_name = "newMemorandum";
+	// 輔助類名
+	NewListDataSQL helper = new NewListDataSQL(MainActivity.this, db_name);
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);
+		// 以輔助類獲得資料庫對象
+		db = helper.getReadableDatabase();
+        
         String firstTime = SharedPreferencesManager.getFirstTime(context);
         if (firstTime.matches("true")) {
 			FavoriteMethod.changeView(activity, SettingActivity.class);
@@ -50,7 +69,7 @@ public class MainActivity extends Activity {
         setupViewComponent();
     }
 
-    @Override
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -314,6 +333,25 @@ public class MainActivity extends Activity {
 	    DisplayMetrics metrics = resources.getDisplayMetrics();
 	    Integer px = dp * (metrics.densityDpi / 160);
 	    return px;
+	}
+	
+	// 取得備忘資料
+	public String[] myNote() {
+		Cursor cursor = db.rawQuery("select note from newMemorandum ORDER BY _ID DESC", null);
+		// 用陣列存資料
+		String[] sNote = new String[cursor.getCount()];
+		int rows_num = cursor.getCount();// 取得資料表列數
+		if (rows_num != 0) {
+			cursor.moveToFirst(); // 將指標移至第一筆資料
+			for (int i = 0; i < rows_num; i++) {
+				String strCr = cursor.getString(0);
+				sNote[i] = strCr;
+				cursor.moveToNext();// 將指標移至下一筆資料
+			}
+		}
+		cursor.close(); // 關閉Cursor
+		// dbHelper.close();//關閉資料庫，釋放記憶體，還需使用時不要關閉
+		return sNote;
 	}
     
 }
