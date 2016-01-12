@@ -24,11 +24,11 @@ public class SettingActivity extends Activity {
 //	private static final String TAG = "SettingActivity";
 	private Activity activity = this;
 	private Context context = this;
-	private ScrollView scrollView2;
-	private RelativeLayout relativeLayout1, relativeLayout1_1, relativeLayout5;
-	private LinearLayout linearLayout3, linearLayout4_2, linearLayout4_4;
-	private ImageView imageView6;
-	private TextView textView3, textView4_1, textView4_3, textView6;
+	private ScrollView scrollView1_2;
+	private RelativeLayout relativeLayout1, relativeLayout1_1, relativeLayout1_2_1_n_1;
+	private LinearLayout linearLayout1_2_1, linearLayout1_2_1_n, linearLayout4_4;
+	private ImageView imageView1_1_2, imageView6;
+	private TextView textView1_1_1, textView4_1, textView4_3, textView6;
 	
 	private final String[] stringArray = {"1","2","3","4","5"};
     private final String[] stringArray2 = {"一", "二", "三", "四"};
@@ -39,12 +39,11 @@ public class SettingActivity extends Activity {
         super.onCreate(savedInstanceState);
         SharedPreferencesManager.saveFirstTime(context, "false");
         relativeLayout1 = new RelativeLayout(activity);
-		RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-		relativeLayout1.setLayoutParams(layoutparams);
+		RelativeLayout.LayoutParams newLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+		relativeLayout1.setLayoutParams(newLayoutParams);
 		setContentView(relativeLayout1);
 		overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 		setupViewComponent();
-        
     }
 
     @Override
@@ -81,63 +80,76 @@ public class SettingActivity extends Activity {
 		relativeLayout1_1 = new RelativeLayout(activity);
 		relativeLayout1_1.setId(1001);
 		relativeLayout1_1.setBackgroundColor(0xFF010203);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, convertDpToPixel(65, context));
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-		relativeLayout1_1.setLayoutParams(layoutParams);
+        RelativeLayout.LayoutParams newLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, convertDpToPixel(65, context));
+        newLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		relativeLayout1_1.setLayoutParams(newLayoutParams);
 		relativeLayout1.addView(relativeLayout1_1);
-//		createTextView3();
+		createTextView1_1_1();
+		createImageView1_1_2();
 	}
-    
-    private void createTextView3() {
-		textView3 = new TextView(activity);
-    	textView3.setText("Settings");
-    	textView3.setTextSize(30f);
-    	textView3.setTextColor(0xFFF1F2F3);
-    	textView3.setGravity(Gravity.CENTER);
-    	relativeLayout1_1.addView(textView3);
-    	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView3.getLayoutParams();
-    	textViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
-    	textViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
-    	textViewLayoutParams.setMargins(50, 0, 0, 0);
-    	textView3.setLayoutParams(textViewLayoutParams);
+
+	private void createTextView1_1_1() {
+		textView1_1_1 = new TextView(activity);
+    	textView1_1_1.setText("設定");
+    	textView1_1_1.setTextSize(30f);
+    	textView1_1_1.setTextColor(0xFFF1F2F3);
+    	textView1_1_1.setGravity(Gravity.CENTER);
+    	relativeLayout1_1.addView(textView1_1_1);
+    	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView1_1_1.getLayoutParams();
+    	textViewLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
+    	textViewLayoutParams.setMargins(0, 0, 0, 0);
+    	textView1_1_1.setLayoutParams(textViewLayoutParams);
+	}
+	
+	private void createImageView1_1_2() {
+		imageView1_1_2 = new ImageView(activity);
+		imageView1_1_2.setBackgroundResource(R.drawable.shape_b);
+		imageView1_1_2.setId(1002);
+		relativeLayout1_1.addView(imageView1_1_2);
+		RelativeLayout.LayoutParams imageViewLayoutParams = (RelativeLayout.LayoutParams)imageView1_1_2.getLayoutParams();
+		imageViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
+		imageViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 1);
+		imageViewLayoutParams.setMargins(0, 0, 50, 0);
+    	imageViewLayoutParams.width = 80;
+    	imageViewLayoutParams.height = 80;
+    	imageView1_1_2.setLayoutParams(imageViewLayoutParams);
 	}
 	
 	private void createScrollView1_2() {
-		scrollView2 = new ScrollView(activity);
-		scrollView2.setBackgroundResource(R.drawable.background_logo);
-		ScrollView.LayoutParams scrollViewLayoutParams = new ScrollView.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-		scrollView2.setLayoutParams(scrollViewLayoutParams);
-		relativeLayout1.addView(scrollView2);
+		scrollView1_2 = new ScrollView(activity);
+		scrollView1_2.setBackgroundResource(R.drawable.background_logo);
+		ScrollView.LayoutParams newLayoutParams = new ScrollView.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+		scrollView1_2.setLayoutParams(newLayoutParams);
+		relativeLayout1.addView(scrollView1_2);
 		
-		RelativeLayout.LayoutParams relativeLayoutLayoutParams = (RelativeLayout.LayoutParams)scrollView2.getLayoutParams();
-		relativeLayoutLayoutParams.addRule(RelativeLayout.BELOW, 1001);
-		scrollView2.setLayoutParams(relativeLayoutLayoutParams);
+		RelativeLayout.LayoutParams scrollViewLayoutParams = (RelativeLayout.LayoutParams)scrollView1_2.getLayoutParams();
+		scrollViewLayoutParams.addRule(RelativeLayout.BELOW, 1001);
+		scrollView1_2.setLayoutParams(scrollViewLayoutParams);
 		
-		createLinearLayout3();
+		createLinearLayout1_2_1();
 	}
 	
-	private void createLinearLayout3() {
-		linearLayout3 = new LinearLayout(activity);
-		linearLayout3.setOrientation(LinearLayout.VERTICAL);
-//		linearLayout3.setBackgroundColor(0xFFFA5858);
-		LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		linearLayout3.setLayoutParams(linearLayoutParams);
-		scrollView2.addView(linearLayout3);
+	private void createLinearLayout1_2_1() {
+		linearLayout1_2_1 = new LinearLayout(activity);
+		linearLayout1_2_1.setOrientation(LinearLayout.VERTICAL);
+//		linearLayout1_2_1.setBackgroundColor(0xFFFA5858);
+		LinearLayout.LayoutParams newLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		linearLayout1_2_1.setLayoutParams(newLayoutParams);
+		scrollView1_2.addView(linearLayout1_2_1);
 		
-		createTextView4_1();
+		createTextView1_2_1_n("Function1");
 		
 		Integer linearLayout4_2_1Number = stringArray.length/3;
     	Integer lastImageViewNumber = stringArray.length%3;
 		for (int i = 0; i < linearLayout4_2_1Number; i++) {
-			createLinearLayout4_2(3);
+			createLinearLayout1_2_1_n(3);
 		}						
 		if (lastImageViewNumber != 0) {
-			createLinearLayout4_2(lastImageViewNumber);
+			createLinearLayout1_2_1_n(lastImageViewNumber);
 		} else {
 			//Do Nothing
 		}
-		
-		createTextView4_3();
+		createTextView1_2_1_n("Function2");
 		
 		Integer linearLayout4_4_1Number = stringArray2.length/3;
     	Integer lastImageViewNumber2 = stringArray2.length%3;
@@ -151,39 +163,82 @@ public class SettingActivity extends Activity {
 		}
 	}
 	
-	private void createTextView4_1() {
+	
+	
+	
+	private void createLinearLayout1_2_1_n2(String[] stringArray) {
+		linearLayout1_2_1_n = new LinearLayout(activity);
+		linearLayout1_2_1_n.setOrientation(LinearLayout.HORIZONTAL);
+		LinearLayout.LayoutParams newLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		linearLayout1_2_1_n.setLayoutParams(newLayoutParams);
+		
+		Integer linearLayout1_2_1_nNumber = stringArray.length/3;
+    	Integer lastImageViewNumber = stringArray.length%3;
+		for (int i = 0; i < linearLayout1_2_1_nNumber; i++) {
+			linearLayout1_2_1.addView(linearLayout1_2_1_n);
+			createRelativeLayout1_2_1_n_12(lastImageViewNumber, 1);
+		}						
+		if (lastImageViewNumber != 0) {
+			linearLayout1_2_1.addView(linearLayout1_2_1_n);
+			for (int i = 0; i < lastImageViewNumber; i++) {
+				createRelativeLayout1_2_1_n_1(i, 1);
+			}
+		} else {
+			//Do Nothing
+		}
+	}
+	
+	private void createRelativeLayout1_2_1_n_12(Integer lastImageViewNumber, Integer group) {
+		relativeLayout1_2_1_n_1 = new RelativeLayout(activity);
+//		relativeLayout5.setBackgroundResource(R.drawable.shape_g);
+		Integer width = getRelativeLayout5Width(getScreenWidth());
+		Integer height = width * 4/3;
+		RelativeLayout.LayoutParams newLayoutParams = new RelativeLayout.LayoutParams(width, height);
+		relativeLayout1_2_1_n_1.setLayoutParams(newLayoutParams);
+		
+		for (int j = 0; j < lastImageViewNumber; j++) {
+			
+			createImageView6(lastImageViewNumber);
+			createTextView6(lastImageViewNumber, group);
+			createCheckBox6();
+			if (group == 1) {
+				linearLayout1_2_1_n.addView(relativeLayout1_2_1_n_1);			
+			} else {
+				linearLayout4_4.addView(relativeLayout1_2_1_n_1);
+			}
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	private void createTextView1_2_1_n(String text) {
 		textView4_1 = new TextView(activity);
-		textView4_1.setText("Function1");
+		LayoutParams newLayoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		textView4_1.setLayoutParams(newLayoutParams);
+		textView4_1.setText(text);
 		textView4_1.setTextSize(30f);
 		textView4_1.setTextColor(0xFFF1F2F3);
-		textView4_1.setGravity(Gravity.START);
-		linearLayout3.addView(textView4_1);
+//		textView4_1.setBackgroundColor(0xFFFA5858);
+		linearLayout1_2_1.addView(textView4_1);
     	LinearLayout.LayoutParams textViewLayoutParams = (LinearLayout.LayoutParams)textView4_1.getLayoutParams();
-    	textViewLayoutParams.setMargins(50, 0, 0, 0);
+    	textViewLayoutParams.setMargins(20, 20, 0, 20);
     	textView4_1.setLayoutParams(textViewLayoutParams);
 	}
 	
-	private void createTextView4_3() {
-		textView4_3 = new TextView(activity);
-		textView4_3.setText("Function2");
-		textView4_3.setTextSize(30f);
-		textView4_3.setTextColor(0xFFF1F2F3);
-		textView4_3.setGravity(Gravity.START);
-		linearLayout3.addView(textView4_3);
-    	LinearLayout.LayoutParams textViewLayoutParams = (LinearLayout.LayoutParams)textView4_3.getLayoutParams();
-    	textViewLayoutParams.setMargins(50, 0, 0, 0);
-    	textView4_3.setLayoutParams(textViewLayoutParams);
-	}
-	
-	private void createLinearLayout4_2(Integer imageViewNumber) {
-		linearLayout4_2 = new LinearLayout(activity);
-		linearLayout4_2.setOrientation(LinearLayout.HORIZONTAL);
-		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		linearLayout4_2.setLayoutParams(layoutParams);
-		linearLayout3.addView(linearLayout4_2);
+	private void createLinearLayout1_2_1_n(Integer imageViewNumber) {
+		linearLayout1_2_1_n = new LinearLayout(activity);
+		linearLayout1_2_1_n.setOrientation(LinearLayout.HORIZONTAL);
+		LinearLayout.LayoutParams newLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		linearLayout1_2_1_n.setLayoutParams(newLayoutParams);
+		linearLayout1_2_1.addView(linearLayout1_2_1_n);
 		
 		for (int i = 0; i < imageViewNumber; i++) {
-			createRelativeLayout5(i, 1);
+			createRelativeLayout1_2_1_n_1(i, 1);
 		}
 	}
 	
@@ -192,28 +247,28 @@ public class SettingActivity extends Activity {
 		linearLayout4_4.setOrientation(LinearLayout.HORIZONTAL);
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		linearLayout4_4.setLayoutParams(layoutParams);
-		linearLayout3.addView(linearLayout4_4);
+		linearLayout1_2_1.addView(linearLayout4_4);
 		
 		for (int i = 0; i < imageViewNumber; i++) {
-			createRelativeLayout5(i, 2);
+			createRelativeLayout1_2_1_n_1(i, 2);
 		}
 	}
 	
-	private void createRelativeLayout5(Integer position, Integer group) {
-		relativeLayout5 = new RelativeLayout(activity);
+	private void createRelativeLayout1_2_1_n_1(Integer position, Integer group) {
+		relativeLayout1_2_1_n_1 = new RelativeLayout(activity);
 //		relativeLayout5.setBackgroundResource(R.drawable.shape_g);
 		Integer width = getRelativeLayout5Width(getScreenWidth());
 		Integer height = width * 4/3;
-		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(width, height);
-		relativeLayout5.setLayoutParams(layoutParams);
+		RelativeLayout.LayoutParams newLayoutParams = new RelativeLayout.LayoutParams(width, height);
+		relativeLayout1_2_1_n_1.setLayoutParams(newLayoutParams);
 		
 		createImageView6(position);
 		createTextView6(position, group);
 		createCheckBox6();
 		if (group == 1) {
-			linearLayout4_2.addView(relativeLayout5);			
+			linearLayout1_2_1_n.addView(relativeLayout1_2_1_n_1);			
 		} else {
-			linearLayout4_4.addView(relativeLayout5);
+			linearLayout4_4.addView(relativeLayout1_2_1_n_1);
 		}
 	}
 
@@ -232,7 +287,7 @@ public class SettingActivity extends Activity {
 		default:
 			break;
 		}
-		relativeLayout5.addView(imageView6);
+		relativeLayout1_2_1_n_1.addView(imageView6);
 		RelativeLayout.LayoutParams imageViewLayoutParams = (RelativeLayout.LayoutParams) imageView6.getLayoutParams();
 		imageViewLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
 		imageViewLayoutParams.setMargins(0, 0, 0, 0);
@@ -255,7 +310,7 @@ public class SettingActivity extends Activity {
     	textView6.setTextSize(30f);
     	textView6.setTextColor(0xFF9FA0FF);
     	textView6.setGravity(Gravity.CENTER);
-    	relativeLayout5.addView(textView6);
+    	relativeLayout1_2_1_n_1.addView(textView6);
     	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView6.getLayoutParams();
     	textViewLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
     	textViewLayoutParams.setMargins(0, 0, 0, 0);
@@ -264,7 +319,7 @@ public class SettingActivity extends Activity {
 	
 	private void createCheckBox6() {
 		CheckBox checkBox = new CheckBox(activity);
-		relativeLayout5.addView(checkBox);
+		relativeLayout1_2_1_n_1.addView(checkBox);
 		RelativeLayout.LayoutParams checkBoxLayoutParams = (RelativeLayout.LayoutParams) checkBox.getLayoutParams();
 		checkBoxLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
 		checkBoxLayoutParams.addRule(RelativeLayout.LEFT_OF, 1003);
