@@ -1,6 +1,7 @@
 package tw.com.ecomuniversal.ecomtest5;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -13,11 +14,13 @@ import android.widget.TextView;
 
 public class LogoActivity extends Activity {
 	private Activity activity = this;
+	private Context context = this;
 	private RelativeLayout relativeLayout;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferencesManager.saveFirstTime(context, "true");
         relativeLayout = new RelativeLayout(activity);
         RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         relativeLayout.setLayoutParams(layoutparams);
