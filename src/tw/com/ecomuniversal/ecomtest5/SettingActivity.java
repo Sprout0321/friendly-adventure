@@ -25,7 +25,7 @@ public class SettingActivity extends Activity {
 	private Activity activity = this;
 	private Context context = this;
 	private ScrollView scrollView2;
-	private RelativeLayout relativeLayout, relativeLayout2, relativeLayout5;
+	private RelativeLayout relativeLayout1, relativeLayout1_1, relativeLayout5;
 	private LinearLayout linearLayout3, linearLayout4_2, linearLayout4_4;
 	private ImageView imageView6;
 	private TextView textView3, textView4_1, textView4_3, textView6;
@@ -38,10 +38,10 @@ public class SettingActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferencesManager.saveFirstTime(context, "false");
-        relativeLayout = new RelativeLayout(activity);
+        relativeLayout1 = new RelativeLayout(activity);
 		RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-		relativeLayout.setLayoutParams(layoutparams);
-		setContentView(relativeLayout);
+		relativeLayout1.setLayoutParams(layoutparams);
+		setContentView(relativeLayout1);
 		overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 		setupViewComponent();
         
@@ -73,23 +73,19 @@ public class SettingActivity extends Activity {
 	}
     
     private void setupViewComponent() {
-    	createRelativeLayout2();
-    	createScrollView2();
+    	createRelativeLayout1_1();
+    	createScrollView1_2();
 	}
     
-    private void createRelativeLayout2() {
-		relativeLayout2 = new RelativeLayout(activity);
-		relativeLayout2.setId(1001);
-		relativeLayout2.setBackgroundColor(0xFF010203);
+    private void createRelativeLayout1_1() {
+		relativeLayout1_1 = new RelativeLayout(activity);
+		relativeLayout1_1.setId(1001);
+		relativeLayout1_1.setBackgroundColor(0xFF010203);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, convertDpToPixel(65, context));
-		relativeLayout2.setLayoutParams(layoutParams);
-		relativeLayout.addView(relativeLayout2);
-		
-		RelativeLayout.LayoutParams relativeLayoutLayoutParams = (RelativeLayout.LayoutParams)relativeLayout2.getLayoutParams();
-		relativeLayoutLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-		relativeLayout2.setLayoutParams(relativeLayoutLayoutParams);
-		
-		createTextView3();
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		relativeLayout1_1.setLayoutParams(layoutParams);
+		relativeLayout1.addView(relativeLayout1_1);
+//		createTextView3();
 	}
     
     private void createTextView3() {
@@ -98,7 +94,7 @@ public class SettingActivity extends Activity {
     	textView3.setTextSize(30f);
     	textView3.setTextColor(0xFFF1F2F3);
     	textView3.setGravity(Gravity.CENTER);
-    	relativeLayout2.addView(textView3);
+    	relativeLayout1_1.addView(textView3);
     	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView3.getLayoutParams();
     	textViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
     	textViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
@@ -106,12 +102,12 @@ public class SettingActivity extends Activity {
     	textView3.setLayoutParams(textViewLayoutParams);
 	}
 	
-	private void createScrollView2() {
+	private void createScrollView1_2() {
 		scrollView2 = new ScrollView(activity);
 		scrollView2.setBackgroundResource(R.drawable.background_logo);
 		ScrollView.LayoutParams scrollViewLayoutParams = new ScrollView.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		scrollView2.setLayoutParams(scrollViewLayoutParams);
-		relativeLayout.addView(scrollView2);
+		relativeLayout1.addView(scrollView2);
 		
 		RelativeLayout.LayoutParams relativeLayoutLayoutParams = (RelativeLayout.LayoutParams)scrollView2.getLayoutParams();
 		relativeLayoutLayoutParams.addRule(RelativeLayout.BELOW, 1001);
