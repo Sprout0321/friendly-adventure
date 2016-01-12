@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
 	private LinearLayout linearLayout3, linearLayout4;
 	private ImageView imageView3_1, imageView3_2, imageView6;
 	private TextView textView3, textView6;
-    private final String[] stringArray = {"設定","b","c","d","e","f","g","h","i","j",
+    private final String[] stringArray = {"設定", "a", "b","c","d","e","f","g","h","i","j",
 			"k","l","m","n","o","p","q","r","s","t",
 			"u","v","w","x","y","z"};
 //    private final String[] stringArray2 = {"1","2"};
