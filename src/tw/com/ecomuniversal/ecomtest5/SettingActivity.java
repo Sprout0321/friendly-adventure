@@ -8,6 +8,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,14 +24,14 @@ import android.widget.TextView;
 
 
 public class SettingActivity extends Activity {
-//	private static final String TAG = "SettingActivity";
+	private static final String TAG = "SettingActivity";
 	private Activity activity = this;
 	private Context context = this;
 	private ScrollView scrollView1_2;
 	private RelativeLayout relativeLayout1, relativeLayout1_1, relativeLayout1_2_1_n_1, relativeLayout1_2_1_n_1_1;
 	private LinearLayout linearLayout1_2_1, linearLayout1_2_1_n;
 	private ImageView imageView1_1_2, imageView1_2_1_n_1_1_2;
-	private TextView textView1_1_1, textView1_2_1_n, textView1_2_1_n_1_1_3;
+	private TextView textView1_1_1, textView1_1_3, textView1_2_1_n, textView1_2_1_n_1_1_3;
 	
 	private final String[] stringArray = {"1","2","3","4","5"};
     private final String[] stringArray2 = {"一", "二", "三", "四"};
@@ -88,6 +89,7 @@ public class SettingActivity extends Activity {
 		relativeLayout1.addView(relativeLayout1_1);
 		createTextView1_1_1();
 		createImageView1_1_2();
+		createTextView1_1_3();
 	}
 
 	private void createTextView1_1_1() {
@@ -103,6 +105,7 @@ public class SettingActivity extends Activity {
     	textView1_1_1.setLayoutParams(textViewLayoutParams);
 	}
 	
+	@SuppressLint("ClickableViewAccessibility")
 	private void createImageView1_1_2() {
 		imageView1_1_2 = new ImageView(activity);
 		imageView1_1_2.setBackgroundResource(R.drawable.shape_b);
@@ -111,10 +114,48 @@ public class SettingActivity extends Activity {
 		RelativeLayout.LayoutParams imageViewLayoutParams = (RelativeLayout.LayoutParams)imageView1_1_2.getLayoutParams();
 		imageViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
 		imageViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 1);
-		imageViewLayoutParams.setMargins(0, 0, 50, 0);
-    	imageViewLayoutParams.width = 80;
+		imageViewLayoutParams.setMargins(0, 0, 20, 0);
+		imageViewLayoutParams.width = 120;
     	imageViewLayoutParams.height = 80;
     	imageView1_1_2.setLayoutParams(imageViewLayoutParams);
+    	imageView1_1_2.setOnTouchListener(new ImageView.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				int action = event.getAction();
+				switch (action) {
+				case MotionEvent.ACTION_DOWN:
+					imageView1_1_2.setBackgroundResource(R.drawable.shape_g);
+				case MotionEvent.ACTION_MOVE:
+					imageView1_1_2.setBackgroundResource(R.drawable.shape_g);
+					break;
+				case MotionEvent.ACTION_UP:
+					imageView1_1_2.setBackgroundResource(R.drawable.shape_b);
+					onBackPressed();
+					break;
+				case MotionEvent.ACTION_CANCEL:
+					break;
+				default:
+					break;
+				}
+				return true;
+			}
+    	});
+	}
+	
+	private void createTextView1_1_3() {
+		textView1_1_3 = new TextView(activity);
+		textView1_1_3.setText("確定");
+		textView1_1_3.setTextSize(20f);
+		textView1_1_3.setTextColor(0xFFF1F2F3);
+		textView1_1_3.setGravity(Gravity.CENTER);
+		relativeLayout1_1.addView(textView1_1_3);
+    	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView1_1_3.getLayoutParams();
+    	textViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
+    	textViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 1);
+    	textViewLayoutParams.setMargins(0, 0, 20, 0);
+    	textViewLayoutParams.width = 120;
+    	textViewLayoutParams.height = 80;
+    	textView1_1_3.setLayoutParams(textViewLayoutParams);
 	}
 	
 	private void createScrollView1_2() {
