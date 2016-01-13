@@ -111,15 +111,14 @@ public class MainActivity extends Activity {
 
 	private void createTextView3() {
 		textView3 = new TextView(activity);
-    	textView3.setText("HomePage");
+    	textView3.setText("首頁");
     	textView3.setTextSize(30f);
     	textView3.setTextColor(0xFFF1F2F3);
     	textView3.setGravity(Gravity.CENTER);
     	relativeLayout2.addView(textView3);
     	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView3.getLayoutParams();
-    	textViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
-    	textViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
-    	textViewLayoutParams.setMargins(50, 0, 0, 0);
+    	textViewLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
+    	textViewLayoutParams.setMargins(0, 0, 0, 0);
     	textView3.setLayoutParams(textViewLayoutParams);
 	}
 
@@ -131,8 +130,8 @@ public class MainActivity extends Activity {
 		RelativeLayout.LayoutParams imageViewLayoutParams = (RelativeLayout.LayoutParams) imageView3_1.getLayoutParams();
 		imageViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
 		imageViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 1);
-		imageViewLayoutParams.setMargins(0, 0, 50, 0);
-    	imageViewLayoutParams.width = 80;
+		imageViewLayoutParams.setMargins(0, 0, 20, 0);
+    	imageViewLayoutParams.width = 100;
     	imageViewLayoutParams.height = 80;
     	imageView3_1.setLayoutParams(imageViewLayoutParams);
     	imageView3_1.setOnTouchListener(getImageViewOnTouchListener(-1, imageView3_1));
@@ -142,8 +141,8 @@ public class MainActivity extends Activity {
 		relativeLayout2.addView(imageView3_2);
 		imageViewLayoutParams = (RelativeLayout.LayoutParams) imageView3_2.getLayoutParams();
 		imageViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
-		imageViewLayoutParams.setMargins(0, 0, 50, 0);
-    	imageViewLayoutParams.width = 80;
+		imageViewLayoutParams.setMargins(0, 0, 20, 0);
+    	imageViewLayoutParams.width = 100;
     	imageViewLayoutParams.height = 80;
     	
     	imageViewLayoutParams.addRule(RelativeLayout.LEFT_OF, 1002);
