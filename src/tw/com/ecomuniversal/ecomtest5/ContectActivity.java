@@ -94,7 +94,7 @@ public class ContectActivity extends Activity {
 
 	private void createTextView3() {
 		textView3 = new TextView(activity);
-    	textView3.setText("InsidePage");
+    	textView3.setText("內頁");
     	textView3.setTextSize(30f);
     	textView3.setTextColor(0xFFF1F2F3);
     	textView3.setGravity(Gravity.CENTER);
@@ -122,15 +122,17 @@ public class ContectActivity extends Activity {
 	
 	private void createTextView3_2() {
 		textView3_2 = new TextView(activity);
-		textView3_2.setText("Back");
+		textView3_2.setText("返回");
 		textView3_2.setTextSize(20f);
 		textView3_2.setTextColor(0xFFF1F2F3);
-		textView3_2.setGravity(Gravity.LEFT);
+		textView3_2.setGravity(Gravity.CENTER);
     	relativeLayout2.addView(textView3_2);
     	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView3_2.getLayoutParams();
     	textViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
     	textViewLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
-    	textViewLayoutParams.setMargins(30, 0, 0, 0);
+    	textViewLayoutParams.setMargins(20, 0, 0, 0);
+    	textViewLayoutParams.width = 120;
+    	textViewLayoutParams.height = 80;
     	textView3_2.setLayoutParams(textViewLayoutParams);
 	}
 
