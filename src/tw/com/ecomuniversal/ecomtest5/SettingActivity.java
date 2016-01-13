@@ -130,59 +130,6 @@ public class SettingActivity extends Activity {
 //		createLinearLayout1_2_1X();
 	}
 	
-	private void createLinearLayout1_2_1X() {
-		linearLayout1_2_1 = new LinearLayout(activity);
-		linearLayout1_2_1.setOrientation(LinearLayout.VERTICAL);
-//		linearLayout1_2_1.setBackgroundColor(0xFFFA5858);
-		LinearLayout.LayoutParams newLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		linearLayout1_2_1.setLayoutParams(newLayoutParams);
-		scrollView1_2.addView(linearLayout1_2_1);
-		
-		createTextView1_2_1_n("Function1");
-		createLinearLayout1_2_1_nX(stringArray);
-		createTextView1_2_1_n("Function2");
-		createLinearLayout1_2_1_nX(stringArray2);
-	}
-	
-	private void createLinearLayout1_2_1_nX(String[] stringArray) {
-		linearLayout1_2_1_n = new LinearLayout(activity);
-		linearLayout1_2_1_n.setOrientation(LinearLayout.HORIZONTAL);
-		LinearLayout.LayoutParams newLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		linearLayout1_2_1_n.setLayoutParams(newLayoutParams);
-		
-		Integer linearLayout1_2_1_nNumber = stringArray.length/3;
-    	Integer lastRelativeLayout1_2_1_n_1_1Number = stringArray.length%3;
-		for (int i = 0; i < linearLayout1_2_1_nNumber; i++) {
-			linearLayout1_2_1.addView(linearLayout1_2_1_n);
-			createRelativeLayout1_2_1_n_1X(3);
-		}
-		if (lastRelativeLayout1_2_1_n_1_1Number != 0) {
-			linearLayout1_2_1.addView(linearLayout1_2_1_n);
-			createRelativeLayout1_2_1_n_1X(lastRelativeLayout1_2_1_n_1_1Number);
-		} else {
-			//Do Nothing
-		}
-	}
-	
-	private void createRelativeLayout1_2_1_n_1X(Integer lastRelativeLayout1_2_1_n_1_1Number) {
-		relativeLayout1_2_1_n_1 = new RelativeLayout(activity);
-		relativeLayout1_2_1_n_1.setBackgroundResource(R.drawable.shape_g);
-		Integer width = getRelativeLayout5Width(getScreenWidth());
-		Integer height = width * 4/3;
-		RelativeLayout.LayoutParams newLayoutParams = new RelativeLayout.LayoutParams(width, height);
-		relativeLayout1_2_1_n_1.setLayoutParams(newLayoutParams);
-		linearLayout1_2_1_n.addView(relativeLayout1_2_1_n_1);
-		
-//		for (int j = 0; j < lastRelativeLayout1_2_1_n_1_1Number; j++) {
-//			createImageView6(lastRelativeLayout1_2_1_n_1_1Number);
-//			createTextView6(lastRelativeLayout1_2_1_n_1_1Number, 1);
-//			createCheckBox6();
-//		}
-		
-	}
-	
-	
-	
 	private void createLinearLayout1_2_1() {
 		linearLayout1_2_1 = new LinearLayout(activity);
 		linearLayout1_2_1.setOrientation(LinearLayout.VERTICAL);
