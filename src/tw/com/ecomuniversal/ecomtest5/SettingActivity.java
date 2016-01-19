@@ -1,5 +1,6 @@
 package tw.com.ecomuniversal.ecomtest5;
 
+import tw.com.ecomuniversal.ecomtest5.method.SharedPreferencesManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +9,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;

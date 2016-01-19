@@ -1,5 +1,7 @@
 package tw.com.ecomuniversal.ecomtest5;
 
+import tw.com.ecomuniversal.ecomtest5.method.FavoriteMethod;
+import tw.com.ecomuniversal.ecomtest5.method.SharedPreferencesManager;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;

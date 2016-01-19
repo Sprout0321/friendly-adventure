@@ -1,5 +1,6 @@
-package tw.com.ecomuniversal.ecomtest5;
+package tw.com.ecomuniversal.ecomtest5.method;
 
+import tw.com.ecomuniversal.ecomtest5.ContectActivity;
 import android.app.Activity;
 
 public class IntentBundleManager {

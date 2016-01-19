@@ -1,10 +1,11 @@
 package tw.com.ecomuniversal.ecomtest5;
 
+import tw.com.ecomuniversal.ecomtest5.method.FavoriteMethod;
+import tw.com.ecomuniversal.ecomtest5.method.IntentBundleManager;
+import tw.com.ecomuniversal.ecomtest5.method.SharedPreferencesManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,14 +18,11 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";

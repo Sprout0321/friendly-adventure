@@ -1,4 +1,4 @@
-package tw.com.ecomuniversal.ecomtest5;
+package tw.com.ecomuniversal.ecomtest5.method;
 
 
 import java.util.Calendar;
