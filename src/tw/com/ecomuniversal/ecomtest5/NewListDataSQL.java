@@ -6,6 +6,11 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class NewListDataSQL extends SQLiteOpenHelper {
+	
+	// 資料庫名
+	private static final String DB_NAME = "MemorandumSQL";
+	// 表名
+	private static final String TABLE_NAME = "newMemorandum";
 
 	// 資料庫版本關係到App更新時，資料庫是否要調用onUpgrade()
 	private static final int VERSION = 1;// 資料庫版本
