@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -43,6 +44,15 @@ public class MainActivity extends Activity {
 		// 以輔助類獲得資料庫對象
 		sproutDatabaseAdapter = new SproutDatabaseAdapter(context);
 		sproutDatabaseAdapter.getWritableDatabase();
+		sproutDatabaseAdapter.insertData("1", "R", false);
+		sproutDatabaseAdapter.insertData("1", "G", false);
+		sproutDatabaseAdapter.insertData("1", "B", false);
+		sproutDatabaseAdapter.insertData("1", "R", false);
+		sproutDatabaseAdapter.insertData("1", "G", false);
+		sproutDatabaseAdapter.insertData("2", "R", false);
+		sproutDatabaseAdapter.insertData("2", "G", false);
+		sproutDatabaseAdapter.insertData("2", "B", false);
+		sproutDatabaseAdapter.insertData("2", "R", false);
         
         String firstTime = SharedPreferencesManager.getFirstTime(context);
         if (firstTime.matches("true")) {
@@ -123,7 +133,13 @@ public class MainActivity extends Activity {
     	imageViewLayoutParams.width = 100;
     	imageViewLayoutParams.height = 80;
     	imageView3_1.setLayoutParams(imageViewLayoutParams);
-    	imageView3_1.setOnTouchListener(getImageViewOnTouchListener(-1, imageView3_1));
+//    	imageView3_1.setOnTouchListener(getImageViewOnTouchListener(-1, imageView3_1));
+		imageView3_1.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				sproutDatabaseAdapter.getAllData();
+			}
+		});
     	
     	imageView3_2 = new ImageView(activity);
 		imageView3_2.setBackgroundResource(R.drawable.shape_b);
@@ -137,7 +153,13 @@ public class MainActivity extends Activity {
     	imageViewLayoutParams.addRule(RelativeLayout.LEFT_OF, 1002);
 		
     	imageView3_2.setLayoutParams(imageViewLayoutParams);
-    	imageView3_2.setOnTouchListener(getImageViewOnTouchListener(-1, imageView3_2));
+//    	imageView3_2.setOnTouchListener(getImageViewOnTouchListener(-1, imageView3_2));
+    	imageView3_2.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				sproutDatabaseAdapter.getData("1", "R", "false");
+			}
+		});
 	}
 
 	private void createScrollView2() {
@@ -270,7 +292,7 @@ public class MainActivity extends Activity {
 					imageView.setBackgroundResource(R.drawable.shape_b);
 					Log.d(TAG + " > getImageViewOnTouchListener()", "action 是 ACTION_UP");
 					if (itemNumbers < 0) {
-						// Do NOthing
+						// TODO
 					} else {
 						FavoriteMethod.useToast(context, stringArray[itemNumbers]);
 						setImageViewListener(itemNumbers);
