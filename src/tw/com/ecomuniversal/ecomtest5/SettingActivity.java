@@ -151,7 +151,7 @@ public class SettingActivity extends Activity {
 			case MotionEvent.ACTION_UP:
 				imageView1_1_2.setBackgroundResource(R.drawable.shape_b);
 				setData();
-//				onBackPressed();
+				onBackPressed();
 				break;
 			case MotionEvent.ACTION_CANCEL:
 				break;
@@ -167,8 +167,9 @@ public class SettingActivity extends Activity {
 			CheckBox checkBox = checkBoxArrayList.get(i);
 			Object checkBoxTag = checkBox.getTag();
 			Log.i(TAG + " > setData()", "Tag " + checkBoxTag + " checkBox = " + checkBox.isChecked());
-			String _ID = checkBoxTag.toString();
+			Integer _ID = Integer.parseInt(checkBoxTag.toString());
 			Boolean checkTrue = checkBox.isChecked();
+			sproutDatabaseAdapter.updateCheckTrue(_ID, checkTrue);
 		}
 
 	}

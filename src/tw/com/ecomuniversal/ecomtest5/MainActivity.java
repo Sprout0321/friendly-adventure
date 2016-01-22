@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
 	//資料元件
 	private SproutDatabaseAdapter sproutDatabaseAdapter;
 	private Cursor sproutTable1Cursor;
-    private Integer itemNumbers = 0;
+    private Integer itemNumbers;
     
 	// 表格欄位名稱: _ID, titleName, groupNumber, colorName, checkTrue
 	private static final String TITLE = "titleName";
@@ -46,6 +46,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.d(TAG + " > onCreate()", "onCreate() called");
 		// 以輔助類獲得資料庫對象
 		sproutDatabaseAdapter = new SproutDatabaseAdapter(context);
 //		for (int i = 0; i < SproutStaticData.titleNameArray.length; i++) {
@@ -54,20 +55,27 @@ public class MainActivity extends Activity {
 //					SproutStaticData.colorNameArray[i],
 //					SproutStaticData.checkTrueArray[i]);
 //		}
-		
-		sproutTable1Cursor = sproutDatabaseAdapter.getDataByCheckTrue();
-		
         String firstTime = SharedPreferencesManager.getFirstTime(context);
         if (firstTime.matches("true")) {
 			FavoriteMethod.changeView(activity, SettingActivity.class);
 		} else {
 			// Do Nothing
 		}
+        
         relativeLayout = new RelativeLayout(activity);
         RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         relativeLayout.setLayoutParams(layoutparams);
         setContentView(relativeLayout);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        
+    }
+    
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	Log.d(TAG + " > onResume()", "onResume() called");
+    	sproutTable1Cursor = sproutDatabaseAdapter.getDataByCheckTrue();
+        itemNumbers = 0;
         setupViewComponent();
     }
 
@@ -141,6 +149,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO
+				FavoriteMethod.changeView(activity, SettingActivity.class);
 			}
 		});
     	
@@ -161,6 +170,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				//TODO
+				onResume();
 			}
 		});
 	}
