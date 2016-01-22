@@ -1,6 +1,5 @@
 package tw.com.ecomuniversal.ecomtest5;
 
-import tw.com.ecomuniversal.ecomtest5.SproutDatabaseAdapter.SproutSQLiteOpenHelper;
 import tw.com.ecomuniversal.ecomtest5.method.FavoriteMethod;
 import tw.com.ecomuniversal.ecomtest5.method.IntentBundleManager;
 import tw.com.ecomuniversal.ecomtest5.method.SharedPreferencesManager;
@@ -38,18 +37,11 @@ public class MainActivity extends Activity {
 	//資料元件
 	private SproutDatabaseAdapter sproutDatabaseAdapter;
 	private Cursor sproutTable1Cursor;
-    private final String[] titleNameArray = {"設定",
-    		"a", "b","c","d","e","f","g","h","i","j",
-			"k","l","m","n","o","p","q","r","s","t",
-			"u","v","w","x","y","z"};
     private Integer itemNumbers = 0;
     
 	// 表格欄位名稱: _ID, titleName, groupNumber, colorName, checkTrue
-	private static final String UID = "_ID";
 	private static final String TITLE = "titleName";
-	private static final String GROUP = "groupNumber";
 	private static final String COLOR = "colorName";
-	private static final String CHECK = "checkTrue";
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +55,8 @@ public class MainActivity extends Activity {
 //					SproutStaticData.checkTrueArray[i]);
 //		}
 		
-		sproutTable1Cursor = sproutDatabaseAdapter.getAllData();
-        
+		sproutTable1Cursor = sproutDatabaseAdapter.getTrueData();
+		
         String firstTime = SharedPreferencesManager.getFirstTime(context);
         if (firstTime.matches("true")) {
 			FavoriteMethod.changeView(activity, SettingActivity.class);
@@ -148,8 +140,7 @@ public class MainActivity extends Activity {
 		imageView3_1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-//				sproutDatabaseAdapter.getAllData();
-//				sproutDatabaseAdapter.insertData("設定", 1, "R", false);
+//				sproutDatabaseAdapter.getTrueData();
 			}
 		});
     	
@@ -314,7 +305,7 @@ public class MainActivity extends Activity {
 					if (itemNumbers < 0) {
 						// TODO
 					} else {
-						FavoriteMethod.useToast(context, titleNameArray[itemNumbers]);
+						FavoriteMethod.useToast(context, SproutStaticData.titleNameArray[itemNumbers]);
 						setImageViewListener(itemNumbers);
 					}
 					break;
@@ -335,7 +326,7 @@ public class MainActivity extends Activity {
 		if (itemNumbers == 0) {
 			FavoriteMethod.changeView(activity, SettingActivity.class);			
 		} else {
-			IntentBundleManager.changeViewToContectActivity(activity, titleNameArray[itemNumbers]);
+			IntentBundleManager.changeViewToContectActivity(activity, SproutStaticData.titleNameArray[itemNumbers]);
 		}
 	}
 	

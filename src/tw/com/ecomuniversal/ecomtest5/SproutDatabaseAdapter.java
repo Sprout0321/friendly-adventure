@@ -48,12 +48,12 @@ public class SproutDatabaseAdapter {
 	public Cursor getAllData() {
 		SQLiteDatabase sQLiteDatabase = sproutSQLiteOpenHelper.getWritableDatabase();
 		// SELECT _ID, Group, Color, Check FROM SproutTable1
-		String[] stringArray = {SproutSQLiteOpenHelper.UID,
+		String[] columnsArray = {SproutSQLiteOpenHelper.UID,
 				SproutSQLiteOpenHelper.TITLE,
 				SproutSQLiteOpenHelper.GROUP,
 				SproutSQLiteOpenHelper.COLOR,
 				SproutSQLiteOpenHelper.CHECK};
-		Cursor cursor = sQLiteDatabase.query(SproutSQLiteOpenHelper.TABLE_NAME, stringArray, null, null, null, null, null);
+		Cursor cursor = sQLiteDatabase.query(SproutSQLiteOpenHelper.TABLE_NAME, columnsArray, null, null, null, null, null);
 //		StringBuffer stringBuffer = new StringBuffer();
 //		Integer count = cursor.getCount();
 //		Log.i(TAG + " > getAllData()", "count = " + count.toString());
@@ -72,6 +72,38 @@ public class SproutDatabaseAdapter {
 //		}
 //		Log.i(TAG + " > getAllData()", "stringBuffer.toString() = " + stringBuffer.toString());
 //		return stringBuffer.toString();
+		return cursor;
+	}
+	
+	public Cursor getTrueData() {
+		// SELECT _ID, Color FROM SproutTable1 WHERE check=?
+		SQLiteDatabase sQLiteDatabase = sproutSQLiteOpenHelper.getWritableDatabase();
+		String[] columnsArray = {SproutSQLiteOpenHelper.UID,
+				SproutSQLiteOpenHelper.TITLE,
+				SproutSQLiteOpenHelper.COLOR};
+		String selectionString = SproutSQLiteOpenHelper.CHECK + " =?";
+		String[] selectionArray = {"1"};
+
+		Cursor cursor = sQLiteDatabase.query(SproutSQLiteOpenHelper.TABLE_NAME,
+				columnsArray, selectionString, selectionArray,
+				null, null, null);
+		
+//		StringBuffer stringBuffer = new StringBuffer();
+//		Integer count = cursor.getCount();
+//		Log.i(TAG + " > getTrueData()", "count = " + count.toString());
+//		while (cursor.moveToNext()) {
+//			Integer index_id = cursor.getColumnIndex(SproutSQLiteOpenHelper.UID);
+//			Integer index_titleName = cursor.getColumnIndex(SproutSQLiteOpenHelper.TITLE);
+//			Integer index_colorName = cursor.getColumnIndex(SproutSQLiteOpenHelper.COLOR);
+//			
+//			Integer _id = cursor.getInt(index_id);
+//			String titleName = cursor.getString(index_titleName);
+//			String colorName = cursor.getString(index_colorName);
+//			
+//			stringBuffer.append(_id + " " + titleName + " " + colorName + "\n");
+//		}
+//		Log.i(TAG + " > getTrueData()", "stringBuffer.toString() = " + stringBuffer.toString());
+//		
 		return cursor;
 	}
 	
