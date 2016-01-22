@@ -33,41 +33,46 @@ public class SproutDatabaseAdapter {
 		sproutSQLiteOpenHelper.getWritableDatabase();
 	}
 	
-	public long insertData(String group, String color, Boolean check){
+	public long insertData(String titleName, Integer groupNumber, String colorName, Boolean checkTrue){
 		SQLiteDatabase sqlDatabase = sproutSQLiteOpenHelper.getWritableDatabase();
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(SproutSQLiteOpenHelper.GROUP, group);
-		contentValues.put(SproutSQLiteOpenHelper.COLOR, color);
-		contentValues.put(SproutSQLiteOpenHelper.CHECK, check.toString());
+		contentValues.put(SproutSQLiteOpenHelper.TITLE, titleName);
+		contentValues.put(SproutSQLiteOpenHelper.GROUP, groupNumber);
+		contentValues.put(SproutSQLiteOpenHelper.COLOR, colorName);
+		contentValues.put(SproutSQLiteOpenHelper.CHECK, checkTrue);
 		Long id = sqlDatabase.insert(SproutSQLiteOpenHelper.TABLE_NAME, null, contentValues);
 		Log.i(TAG + " > insertData()", "id = " + id);
 		return id;
 	}
 	
-	public String getAllData() {
-		SQLiteDatabase sqlDatabase = sproutSQLiteOpenHelper.getWritableDatabase();
+	public Cursor getAllData() {
+		SQLiteDatabase sQLiteDatabase = sproutSQLiteOpenHelper.getWritableDatabase();
 		// SELECT _ID, Group, Color, Check FROM SproutTable1
 		String[] stringArray = {SproutSQLiteOpenHelper.UID,
+				SproutSQLiteOpenHelper.TITLE,
 				SproutSQLiteOpenHelper.GROUP,
 				SproutSQLiteOpenHelper.COLOR,
 				SproutSQLiteOpenHelper.CHECK};
-		Cursor cursor = sqlDatabase.query(SproutSQLiteOpenHelper.TABLE_NAME, stringArray, null, null, null, null, null);
+		Cursor cursor = sQLiteDatabase.query(SproutSQLiteOpenHelper.TABLE_NAME, stringArray, null, null, null, null, null);
 		StringBuffer stringBuffer = new StringBuffer();
 		Integer count = cursor.getCount();
 		Log.i(TAG + " > getAllData()", "count = " + count.toString());
 		while (cursor.moveToNext()) {
 			Integer index_id = cursor.getColumnIndex(SproutSQLiteOpenHelper.UID);
-			Integer index_group = cursor.getColumnIndex(SproutSQLiteOpenHelper.GROUP);
-			Integer index_color = cursor.getColumnIndex(SproutSQLiteOpenHelper.COLOR);
-			Integer index_check = cursor.getColumnIndex(SproutSQLiteOpenHelper.CHECK);
+			Integer index_titleName = cursor.getColumnIndex(SproutSQLiteOpenHelper.TITLE);
+			Integer index_groupNumber = cursor.getColumnIndex(SproutSQLiteOpenHelper.GROUP);
+			Integer index_colorName = cursor.getColumnIndex(SproutSQLiteOpenHelper.COLOR);
+			Integer index_checkTrue = cursor.getColumnIndex(SproutSQLiteOpenHelper.CHECK);
 			Integer _id = cursor.getInt(index_id);
-			String group = cursor.getString(index_group);
-			String color = cursor.getString(index_color);
-			String check = cursor.getString(index_check);
-			stringBuffer.append(_id + " " + group + " " + color + " " + check + "\n");
+			String titleName = cursor.getString(index_titleName);
+			Integer groupNumber = cursor.getInt(index_groupNumber);
+			String colorName = cursor.getString(index_colorName);
+			Boolean checkTrue = cursor.getInt(index_checkTrue) > 0;
+			stringBuffer.append(_id + " " + titleName + " " + groupNumber + " " + colorName + " " + checkTrue + "\n");
 		}
 		Log.i(TAG + " > getAllData()", "stringBuffer.toString() = " + stringBuffer.toString());
-		return stringBuffer.toString();
+//		return stringBuffer.toString();
+		return cursor;
 	}
 	
 	public String getData(String groupName, String colorName, String checkTrue) {
@@ -104,15 +109,17 @@ public class SproutDatabaseAdapter {
 		private static final Integer DATABASE_VERSION = 1;
 		// 表格欄位名稱: _ID, groupName, colorName, checkTrue
 		private static final String UID = "_ID";
-		private static final String GROUP = "groupName"; //名稱用 "GROUP", "Group", "group" 會create table失敗
+		private static final String TITLE = "titleName";
+		private static final String GROUP = "groupNumber"; //名稱用 "GROUP", "Group", "group" 會create table失敗
 		private static final String COLOR = "colorName";
 		private static final String CHECK = "checkTrue";
 		// 創建表格字串
 		private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME
 				+ " (" + UID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-				+ GROUP + " VARCHAR(255), "
-				+ COLOR + " VARCHAR(255), "
-				+ CHECK + " VARCHAR(255));";
+				+ TITLE + " NVARCHAR(10), "
+				+ GROUP + " INT, "
+				+ COLOR + " VARCHAR(10), "
+				+ CHECK + " BOOLEAN);";
 		// 刪除表格字串
 		private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 		

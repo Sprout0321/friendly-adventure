@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -27,16 +28,19 @@ public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
 	private Activity activity = this;
 	private Context context = this;
+	//View元件
 	private ScrollView scrollView2;
 	private RelativeLayout relativeLayout, relativeLayout2, relativeLayout5;
 	private LinearLayout linearLayout3, linearLayout4;
 	private ImageView imageView3_1, imageView3_2, imageView6;
 	private TextView textView3, textView6;
+	//資料元件
+	private SproutDatabaseAdapter sproutDatabaseAdapter;
+	private Cursor sproutTable1Cursor;
     private final String[] stringArray = {"設定", "a", "b","c","d","e","f","g","h","i","j",
 			"k","l","m","n","o","p","q","r","s","t",
 			"u","v","w","x","y","z"};
     private Integer itemNumbers = 0;
-    SproutDatabaseAdapter sproutDatabaseAdapter;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,8 @@ public class MainActivity extends Activity {
 //		sproutDatabaseAdapter.insertData("2", "G", false);
 //		sproutDatabaseAdapter.insertData("2", "B", false);
 //		sproutDatabaseAdapter.insertData("2", "R", false);
+		
+//		sproutTable1Cursor = sproutDatabaseAdapter.getAllData();
         
         String firstTime = SharedPreferencesManager.getFirstTime(context);
         if (firstTime.matches("true")) {
@@ -136,7 +142,8 @@ public class MainActivity extends Activity {
 		imageView3_1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				sproutDatabaseAdapter.getAllData();
+//				sproutDatabaseAdapter.getAllData();
+				sproutDatabaseAdapter.insertData("設定", 1, "R", false);
 			}
 		});
     	
@@ -156,7 +163,8 @@ public class MainActivity extends Activity {
     	imageView3_2.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				sproutDatabaseAdapter.getData("1", "R", "false");
+//				sproutDatabaseAdapter.getData("1", "R", "false");
+				sproutDatabaseAdapter.getAllData();
 			}
 		});
 	}
