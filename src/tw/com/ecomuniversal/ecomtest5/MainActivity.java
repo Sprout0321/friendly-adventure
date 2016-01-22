@@ -43,16 +43,15 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		// 以輔助類獲得資料庫對象
 		sproutDatabaseAdapter = new SproutDatabaseAdapter(context);
-		sproutDatabaseAdapter.getWritableDatabase();
-		sproutDatabaseAdapter.insertData("1", "R", false);
-		sproutDatabaseAdapter.insertData("1", "G", false);
-		sproutDatabaseAdapter.insertData("1", "B", false);
-		sproutDatabaseAdapter.insertData("1", "R", false);
-		sproutDatabaseAdapter.insertData("1", "G", false);
-		sproutDatabaseAdapter.insertData("2", "R", false);
-		sproutDatabaseAdapter.insertData("2", "G", false);
-		sproutDatabaseAdapter.insertData("2", "B", false);
-		sproutDatabaseAdapter.insertData("2", "R", false);
+//		sproutDatabaseAdapter.insertData("1", "R", false);
+//		sproutDatabaseAdapter.insertData("1", "G", false);
+//		sproutDatabaseAdapter.insertData("1", "B", false);
+//		sproutDatabaseAdapter.insertData("1", "R", false);
+//		sproutDatabaseAdapter.insertData("1", "G", false);
+//		sproutDatabaseAdapter.insertData("2", "R", false);
+//		sproutDatabaseAdapter.insertData("2", "G", false);
+//		sproutDatabaseAdapter.insertData("2", "B", false);
+//		sproutDatabaseAdapter.insertData("2", "R", false);
         
         String firstTime = SharedPreferencesManager.getFirstTime(context);
         if (firstTime.matches("true")) {

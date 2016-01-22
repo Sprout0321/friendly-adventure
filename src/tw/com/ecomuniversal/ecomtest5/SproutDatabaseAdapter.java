@@ -53,12 +53,14 @@ public class SproutDatabaseAdapter {
 				SproutSQLiteOpenHelper.CHECK};
 		Cursor cursor = sqlDatabase.query(SproutSQLiteOpenHelper.TABLE_NAME, stringArray, null, null, null, null, null);
 		StringBuffer stringBuffer = new StringBuffer();
+		Integer count = cursor.getCount();
+		Log.i(TAG + " > getAllData()", "count = " + count.toString());
 		while (cursor.moveToNext()) {
 			Integer index_id = cursor.getColumnIndex(SproutSQLiteOpenHelper.UID);
 			Integer index_group = cursor.getColumnIndex(SproutSQLiteOpenHelper.GROUP);
 			Integer index_color = cursor.getColumnIndex(SproutSQLiteOpenHelper.COLOR);
 			Integer index_check = cursor.getColumnIndex(SproutSQLiteOpenHelper.CHECK);
-			String _id = cursor.getString(index_id);
+			Integer _id = cursor.getInt(index_id);
 			String group = cursor.getString(index_group);
 			String color = cursor.getString(index_color);
 			String check = cursor.getString(index_check);
