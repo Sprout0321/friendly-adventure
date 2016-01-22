@@ -44,7 +44,7 @@ public class SproutDatabaseAdapter {
 		return id;
 	}
 	
-	public String getAllData(){
+	public String getAllData() {
 		SQLiteDatabase sqlDatabase = sproutSQLiteOpenHelper.getWritableDatabase();
 		// SELECT _ID, Group, Color, Check FROM SproutTable1
 		String[] stringArray = {SproutSQLiteOpenHelper.UID,
