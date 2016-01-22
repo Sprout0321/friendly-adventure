@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
 //					SproutStaticData.checkTrueArray[i]);
 //		}
 		
-		sproutTable1Cursor = sproutDatabaseAdapter.getTrueData();
+		sproutTable1Cursor = sproutDatabaseAdapter.getDataByCheckTrue();
 		
         String firstTime = SharedPreferencesManager.getFirstTime(context);
         if (firstTime.matches("true")) {

@@ -75,7 +75,7 @@ public class SproutDatabaseAdapter {
 		return cursor;
 	}
 	
-	public Cursor getTrueData() {
+	public Cursor getDataByCheckTrue() {
 		// SELECT _ID, titleName, colorName FROM SproutTable1 WHERE checkTrue=?
 		SQLiteDatabase sQLiteDatabase = sproutSQLiteOpenHelper.getWritableDatabase();
 		String[] columnsArray = {SproutSQLiteOpenHelper.UID,
@@ -89,7 +89,7 @@ public class SproutDatabaseAdapter {
 		return cursor;
 	}
 	
-	public Cursor getGroupData(Integer group) {
+	public Cursor getDataByGroup(Integer group) {
 		// SELECT _ID, titleName, colorName, checkTrue FROM SproutTable1 WHERE groupNumber=?
 		SQLiteDatabase sQLiteDatabase = sproutSQLiteOpenHelper.getWritableDatabase();
 		String[] columnsArray = {SproutSQLiteOpenHelper.UID,
@@ -103,6 +103,8 @@ public class SproutDatabaseAdapter {
 				null, null, null);
 		return cursor;
 	}
+	
+	
 	
 	public String getID(String titleName, Integer groupNumber, String colorName, Boolean checkTrue) {
 		// SELECT _ID FROM SproutTable1 WHERE titleName=? AND groupNumber=? AND colorName=? AND checkTrue=?

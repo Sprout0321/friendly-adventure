@@ -1,5 +1,7 @@
 package tw.com.ecomuniversal.ecomtest5;
 
+import java.util.ArrayList;
+
 import tw.com.ecomuniversal.ecomtest5.method.SharedPreferencesManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -18,6 +20,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -38,10 +42,8 @@ public class SettingActivity extends Activity {
 	//資料元件
 	private SproutDatabaseAdapter sproutDatabaseAdapter;
 	private Cursor sproutTable1Cursor;
-	
-	private final String[] stringArray = {"1","2","3","4","5"};
-    private final String[] stringArray2 = {"一", "二", "三", "四"};
     private Integer itemNumbers;
+    private ArrayList<CheckBox> checkBoxArrayList;
 
 	// 表格欄位名稱: _ID, titleName, groupNumber, colorName, checkTrue
     private static final String UID = "_ID";
@@ -54,7 +56,7 @@ public class SettingActivity extends Activity {
         super.onCreate(savedInstanceState);
 		// 以輔助類獲得資料庫對象
 		sproutDatabaseAdapter = new SproutDatabaseAdapter(context);
-		
+		checkBoxArrayList = new ArrayList<CheckBox>();
         SharedPreferencesManager.saveFirstTime(context, "false");
         relativeLayout1 = new RelativeLayout(activity);
 		RelativeLayout.LayoutParams newLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
@@ -120,7 +122,6 @@ public class SettingActivity extends Activity {
     	textView1_1_1.setLayoutParams(textViewLayoutParams);
 	}
 	
-	@SuppressLint("ClickableViewAccessibility")
 	private void createImageView1_1_2() {
 		imageView1_1_2 = new ImageView(activity);
 		imageView1_1_2.setBackgroundResource(R.drawable.shape_b);
@@ -133,28 +134,43 @@ public class SettingActivity extends Activity {
 		imageViewLayoutParams.width = 120;
     	imageViewLayoutParams.height = 80;
     	imageView1_1_2.setLayoutParams(imageViewLayoutParams);
-    	imageView1_1_2.setOnTouchListener(new ImageView.OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				int action = event.getAction();
-				switch (action) {
-				case MotionEvent.ACTION_DOWN:
-					imageView1_1_2.setBackgroundResource(R.drawable.shape_g);
-				case MotionEvent.ACTION_MOVE:
-					imageView1_1_2.setBackgroundResource(R.drawable.shape_g);
-					break;
-				case MotionEvent.ACTION_UP:
-					imageView1_1_2.setBackgroundResource(R.drawable.shape_b);
-					onBackPressed();
-					break;
-				case MotionEvent.ACTION_CANCEL:
-					break;
-				default:
-					break;
-				}
-				return true;
+    	imageView1_1_2.setOnTouchListener(imageViewOnTouchListener);
+	}
+	
+	@SuppressLint("ClickableViewAccessibility")
+	ImageView.OnTouchListener imageViewOnTouchListener = new ImageView.OnTouchListener() {
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			int action = event.getAction();
+			switch (action) {
+			case MotionEvent.ACTION_DOWN:
+				imageView1_1_2.setBackgroundResource(R.drawable.shape_g);
+			case MotionEvent.ACTION_MOVE:
+				imageView1_1_2.setBackgroundResource(R.drawable.shape_g);
+				break;
+			case MotionEvent.ACTION_UP:
+				imageView1_1_2.setBackgroundResource(R.drawable.shape_b);
+				setData();
+//				onBackPressed();
+				break;
+			case MotionEvent.ACTION_CANCEL:
+				break;
+			default:
+				break;
 			}
-    	});
+			return true;
+		}
+	};
+	
+	private void setData() {
+		for (int i = 0; i < checkBoxArrayList.size(); i++) {
+			CheckBox checkBox = checkBoxArrayList.get(i);
+			Object checkBoxTag = checkBox.getTag();
+			Log.i(TAG + " > setData()", "Tag " + checkBoxTag + " checkBox = " + checkBox.isChecked());
+			String _ID = checkBoxTag.toString();
+			Boolean checkTrue = checkBox.isChecked();
+		}
+
 	}
 	
 	private void createTextView1_1_3() {
@@ -198,7 +214,7 @@ public class SettingActivity extends Activity {
 		// Group1
 		itemNumbers = 0;
 		createTextView1_2_1_n("Function1");
-		sproutTable1Cursor = sproutDatabaseAdapter.getGroupData(1);
+		sproutTable1Cursor = sproutDatabaseAdapter.getDataByGroup(1);
 		Integer tableRowNumber = sproutTable1Cursor.getCount();
 		Integer linearLayout1_2_1_nNumber = tableRowNumber/3;
     	Integer lastImageViewNumber = tableRowNumber%3;
@@ -214,7 +230,7 @@ public class SettingActivity extends Activity {
 		// Group2
 		itemNumbers = 0;
 		createTextView1_2_1_n("Function2");
-		sproutTable1Cursor = sproutDatabaseAdapter.getGroupData(2);
+		sproutTable1Cursor = sproutDatabaseAdapter.getDataByGroup(2);
 		tableRowNumber = sproutTable1Cursor.getCount();
 		linearLayout1_2_1_nNumber = tableRowNumber/3;
     	lastImageViewNumber = tableRowNumber%3;
@@ -271,6 +287,7 @@ public class SettingActivity extends Activity {
 	private void createRelativeLayout1_2_1_n_1_1() {
 		// 外圍黑色框框
 		relativeLayout1_2_1_n_1_1 = new RelativeLayout(activity);
+		relativeLayout1_2_1_n_1_1.setId(121011);
 		GradientDrawable border = new GradientDrawable();
 		border.setColor(0x00FFFFFF); // white background
 		border.setStroke(4, 0xFF000000); // black border with full opacity
@@ -304,6 +321,7 @@ public class SettingActivity extends Activity {
 		Boolean checkTrue = sproutTable1Cursor.getInt(index_checkTrue) > 0;
 		checkBox.setChecked(checkTrue);
 		checkBox.setTag(_id);
+		checkBoxArrayList.add(checkBox);
 		relativeLayout1_2_1_n_1_1.addView(checkBox);
 		RelativeLayout.LayoutParams checkBoxLayoutParams = (RelativeLayout.LayoutParams) checkBox.getLayoutParams();
 		checkBoxLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
@@ -311,7 +329,17 @@ public class SettingActivity extends Activity {
 		Integer marginWidth = getCheckBoxMarginWidth(getScreenWidth());
 		checkBoxLayoutParams.setMargins(marginWidth, 0, marginWidth, 0);
 		checkBox.setLayoutParams(checkBoxLayoutParams);
+		checkBox.setOnCheckedChangeListener(checkBoxOnCheckedChangeListener);
 	}
+	
+	OnCheckedChangeListener checkBoxOnCheckedChangeListener = new OnCheckedChangeListener() {
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			Object checkBoxTag = buttonView.getTag();
+			Log.d(TAG + " > checkBoxOnCheckedChangeListener()", "checkBoxTag = " + checkBoxTag);
+			Log.d(TAG + " > checkBoxOnCheckedChangeListener()", "isChecked = " + isChecked);
+		}
+	};
 
 	private void createImageView1_2_1_n_1_1_2() {
 		imageView1_2_1_n_1_1_2 = new ImageView(activity);
