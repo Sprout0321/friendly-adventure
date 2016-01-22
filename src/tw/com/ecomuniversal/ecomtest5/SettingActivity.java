@@ -39,6 +39,7 @@ public class SettingActivity extends Activity {
 	private ImageView imageView1_1_2, imageView1_2_1_n_1_1_2;
 	private TextView textView1_1_1, textView1_1_3, textView1_2_1_n, textView1_2_1_n_1_1_3;
 	
+
 	//資料元件
 	private SproutDatabaseAdapter sproutDatabaseAdapter;
 	private Cursor sproutTable1Cursor;
@@ -50,6 +51,9 @@ public class SettingActivity extends Activity {
 	private static final String TITLE = "titleName";
 	private static final String COLOR = "colorName";
 	private static final String CHECK = "checkTrue";
+
+	private final String[] stringArray = {"1","2","3","4","5", "6"};
+
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
