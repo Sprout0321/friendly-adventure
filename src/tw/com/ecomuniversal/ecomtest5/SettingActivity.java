@@ -303,7 +303,7 @@ public class SettingActivity extends Activity {
 		Integer _id = sproutTable1Cursor.getInt(index_id);
 		Boolean checkTrue = sproutTable1Cursor.getInt(index_checkTrue) > 0;
 		checkBox.setChecked(checkTrue);
-		checkBox.setTag(_id);	
+		checkBox.setTag(_id);
 		relativeLayout1_2_1_n_1_1.addView(checkBox);
 		RelativeLayout.LayoutParams checkBoxLayoutParams = (RelativeLayout.LayoutParams) checkBox.getLayoutParams();
 		checkBoxLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
