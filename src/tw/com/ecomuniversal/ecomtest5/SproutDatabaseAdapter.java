@@ -107,7 +107,7 @@ public class SproutDatabaseAdapter {
 		private static final String TABLE_NAME = "SproutTable1";
 		// 資料庫版本，關係到App更新時，資料庫是否要調用onUpgrade()
 		private static final Integer DATABASE_VERSION = 1;
-		// 表格欄位名稱: _ID, groupName, colorName, checkTrue
+		// 表格欄位名稱: _ID, titleName, groupNumber, colorName, checkTrue
 		private static final String UID = "_ID";
 		private static final String TITLE = "titleName";
 		private static final String GROUP = "groupNumber"; //名稱用 "GROUP", "Group", "group" 會create table失敗

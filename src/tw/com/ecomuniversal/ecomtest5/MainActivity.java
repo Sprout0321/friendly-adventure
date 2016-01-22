@@ -1,5 +1,6 @@
 package tw.com.ecomuniversal.ecomtest5;
 
+import tw.com.ecomuniversal.ecomtest5.SproutDatabaseAdapter.SproutSQLiteOpenHelper;
 import tw.com.ecomuniversal.ecomtest5.method.FavoriteMethod;
 import tw.com.ecomuniversal.ecomtest5.method.IntentBundleManager;
 import tw.com.ecomuniversal.ecomtest5.method.SharedPreferencesManager;
@@ -42,6 +43,13 @@ public class MainActivity extends Activity {
 			"k","l","m","n","o","p","q","r","s","t",
 			"u","v","w","x","y","z"};
     private Integer itemNumbers = 0;
+    
+	// 表格欄位名稱: _ID, titleName, groupNumber, colorName, checkTrue
+	private static final String UID = "_ID";
+	private static final String TITLE = "titleName";
+	private static final String GROUP = "groupNumber";
+	private static final String COLOR = "colorName";
+	private static final String CHECK = "checkTrue";
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,8 +197,9 @@ public class MainActivity extends Activity {
 		linearLayout3.setLayoutParams(linearLayoutParams);
 		scrollView2.addView(linearLayout3);
 		
-		Integer linearLayout4_1Number = titleNameArray.length/3;
-    	Integer lastImageViewNumber = titleNameArray.length%3;
+		Integer tableRowNumber = sproutTable1Cursor.getCount();
+		Integer linearLayout4_1Number = tableRowNumber/3;
+    	Integer lastImageViewNumber = tableRowNumber%3;
 		
 		for (int i = 0; i < linearLayout4_1Number; i++) {
 			createLinearLayout4(3);
@@ -232,14 +241,17 @@ public class MainActivity extends Activity {
 
 	private void createImageView6(Integer position) {
 		imageView6 = new ImageView(activity);
-		switch (position) {
-		case 0:
-			imageView6.setBackgroundResource(R.drawable.shape_b);
+		sproutTable1Cursor.moveToPosition(itemNumbers);
+		Integer index_colorName = sproutTable1Cursor.getColumnIndex(COLOR);
+		String colorName = sproutTable1Cursor.getString(index_colorName);
+		switch (colorName) {
+		case "R":
+			imageView6.setBackgroundResource(R.drawable.shape_r);
 			break;
-		case 1:
-			imageView6.setBackgroundResource(R.drawable.shape_b);
+		case "G":
+			imageView6.setBackgroundResource(R.drawable.shape_g);
 			break;
-		case 2:
+		case "B":
 			imageView6.setBackgroundResource(R.drawable.shape_b);
 			break;
 		default:
@@ -252,13 +264,16 @@ public class MainActivity extends Activity {
     	imageViewLayoutParams.width = getImageView6Width(getScreenWidth());
     	imageViewLayoutParams.height = getImageView6Width(getScreenWidth());
     	imageView6.setLayoutParams(imageViewLayoutParams);
-    	imageView6.setOnTouchListener(getImageViewOnTouchListener(itemNumbers, imageView6));
+//    	imageView6.setOnTouchListener(getImageViewOnTouchListener(itemNumbers, imageView6));
 	}
 	
 	private void createTextView6(Integer position) {
 		textView6 = new TextView(activity);
-    	textView6.setText(titleNameArray[itemNumbers]);
-    	itemNumbers++;
+//    	textView6.setText(titleNameArray[itemNumbers]);
+		sproutTable1Cursor.moveToPosition(itemNumbers);
+		Integer index_titleName = sproutTable1Cursor.getColumnIndex(TITLE);
+		String titleName = sproutTable1Cursor.getString(index_titleName);
+		textView6.setText(titleName);
     	textView6.setTextSize(30f);
     	textView6.setTextColor(0xFF9FA0FF);
     	textView6.setGravity(Gravity.CENTER);
@@ -266,8 +281,8 @@ public class MainActivity extends Activity {
     	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView6.getLayoutParams();
     	textViewLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
     	textViewLayoutParams.setMargins(0, 0, 0, 0);
-    	textView6.setLayoutParams(textViewLayoutParams);
-    	
+    	textView6.setLayoutParams(textViewLayoutParams); 	
+    	itemNumbers++;
 	}
 
 //	private ImageView.OnClickListener getImageViewOnClickListener(final Integer itemNumbers) {
