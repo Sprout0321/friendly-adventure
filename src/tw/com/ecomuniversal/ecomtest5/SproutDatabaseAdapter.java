@@ -54,23 +54,23 @@ public class SproutDatabaseAdapter {
 				SproutSQLiteOpenHelper.COLOR,
 				SproutSQLiteOpenHelper.CHECK};
 		Cursor cursor = sQLiteDatabase.query(SproutSQLiteOpenHelper.TABLE_NAME, stringArray, null, null, null, null, null);
-		StringBuffer stringBuffer = new StringBuffer();
-		Integer count = cursor.getCount();
-		Log.i(TAG + " > getAllData()", "count = " + count.toString());
-		while (cursor.moveToNext()) {
-			Integer index_id = cursor.getColumnIndex(SproutSQLiteOpenHelper.UID);
-			Integer index_titleName = cursor.getColumnIndex(SproutSQLiteOpenHelper.TITLE);
-			Integer index_groupNumber = cursor.getColumnIndex(SproutSQLiteOpenHelper.GROUP);
-			Integer index_colorName = cursor.getColumnIndex(SproutSQLiteOpenHelper.COLOR);
-			Integer index_checkTrue = cursor.getColumnIndex(SproutSQLiteOpenHelper.CHECK);
-			Integer _id = cursor.getInt(index_id);
-			String titleName = cursor.getString(index_titleName);
-			Integer groupNumber = cursor.getInt(index_groupNumber);
-			String colorName = cursor.getString(index_colorName);
-			Boolean checkTrue = cursor.getInt(index_checkTrue) > 0;
-			stringBuffer.append(_id + " " + titleName + " " + groupNumber + " " + colorName + " " + checkTrue + "\n");
-		}
-		Log.i(TAG + " > getAllData()", "stringBuffer.toString() = " + stringBuffer.toString());
+//		StringBuffer stringBuffer = new StringBuffer();
+//		Integer count = cursor.getCount();
+//		Log.i(TAG + " > getAllData()", "count = " + count.toString());
+//		while (cursor.moveToNext()) {
+//			Integer index_id = cursor.getColumnIndex(SproutSQLiteOpenHelper.UID);
+//			Integer index_titleName = cursor.getColumnIndex(SproutSQLiteOpenHelper.TITLE);
+//			Integer index_groupNumber = cursor.getColumnIndex(SproutSQLiteOpenHelper.GROUP);
+//			Integer index_colorName = cursor.getColumnIndex(SproutSQLiteOpenHelper.COLOR);
+//			Integer index_checkTrue = cursor.getColumnIndex(SproutSQLiteOpenHelper.CHECK);
+//			Integer _id = cursor.getInt(index_id);
+//			String titleName = cursor.getString(index_titleName);
+//			Integer groupNumber = cursor.getInt(index_groupNumber);
+//			String colorName = cursor.getString(index_colorName);
+//			Boolean checkTrue = cursor.getInt(index_checkTrue) > 0;
+//			stringBuffer.append(_id + " " + titleName + " " + groupNumber + " " + colorName + " " + checkTrue + "\n");
+//		}
+//		Log.i(TAG + " > getAllData()", "stringBuffer.toString() = " + stringBuffer.toString());
 //		return stringBuffer.toString();
 		return cursor;
 	}

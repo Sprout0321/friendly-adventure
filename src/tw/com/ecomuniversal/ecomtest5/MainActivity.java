@@ -37,7 +37,8 @@ public class MainActivity extends Activity {
 	//資料元件
 	private SproutDatabaseAdapter sproutDatabaseAdapter;
 	private Cursor sproutTable1Cursor;
-    private final String[] stringArray = {"設定", "a", "b","c","d","e","f","g","h","i","j",
+    private final String[] titleNameArray = {"設定",
+    		"a", "b","c","d","e","f","g","h","i","j",
 			"k","l","m","n","o","p","q","r","s","t",
 			"u","v","w","x","y","z"};
     private Integer itemNumbers = 0;
@@ -47,17 +48,14 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		// 以輔助類獲得資料庫對象
 		sproutDatabaseAdapter = new SproutDatabaseAdapter(context);
-//		sproutDatabaseAdapter.insertData("1", "R", false);
-//		sproutDatabaseAdapter.insertData("1", "G", false);
-//		sproutDatabaseAdapter.insertData("1", "B", false);
-//		sproutDatabaseAdapter.insertData("1", "R", false);
-//		sproutDatabaseAdapter.insertData("1", "G", false);
-//		sproutDatabaseAdapter.insertData("2", "R", false);
-//		sproutDatabaseAdapter.insertData("2", "G", false);
-//		sproutDatabaseAdapter.insertData("2", "B", false);
-//		sproutDatabaseAdapter.insertData("2", "R", false);
+//		for (int i = 0; i < SproutStaticData.titleNameArray.length; i++) {
+//			sproutDatabaseAdapter.insertData(SproutStaticData.titleNameArray[i],
+//					SproutStaticData.groupNumberArray[i],
+//					SproutStaticData.colorNameArray[i],
+//					SproutStaticData.checkTrueArray[i]);
+//		}
 		
-//		sproutTable1Cursor = sproutDatabaseAdapter.getAllData();
+		sproutTable1Cursor = sproutDatabaseAdapter.getAllData();
         
         String firstTime = SharedPreferencesManager.getFirstTime(context);
         if (firstTime.matches("true")) {
@@ -143,7 +141,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 //				sproutDatabaseAdapter.getAllData();
-				sproutDatabaseAdapter.insertData("設定", 1, "R", false);
+//				sproutDatabaseAdapter.insertData("設定", 1, "R", false);
 			}
 		});
     	
@@ -164,7 +162,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 //				sproutDatabaseAdapter.getData("1", "R", "false");
-				sproutDatabaseAdapter.getAllData();
+//				sproutDatabaseAdapter.getAllData();
 			}
 		});
 	}
@@ -191,8 +189,8 @@ public class MainActivity extends Activity {
 		linearLayout3.setLayoutParams(linearLayoutParams);
 		scrollView2.addView(linearLayout3);
 		
-		Integer linearLayout4_1Number = stringArray.length/3;
-    	Integer lastImageViewNumber = stringArray.length%3;
+		Integer linearLayout4_1Number = titleNameArray.length/3;
+    	Integer lastImageViewNumber = titleNameArray.length%3;
 		
 		for (int i = 0; i < linearLayout4_1Number; i++) {
 			createLinearLayout4(3);
@@ -259,7 +257,7 @@ public class MainActivity extends Activity {
 	
 	private void createTextView6(Integer position) {
 		textView6 = new TextView(activity);
-    	textView6.setText(stringArray[itemNumbers]);
+    	textView6.setText(titleNameArray[itemNumbers]);
     	itemNumbers++;
     	textView6.setTextSize(30f);
     	textView6.setTextColor(0xFF9FA0FF);
@@ -301,7 +299,7 @@ public class MainActivity extends Activity {
 					if (itemNumbers < 0) {
 						// TODO
 					} else {
-						FavoriteMethod.useToast(context, stringArray[itemNumbers]);
+						FavoriteMethod.useToast(context, titleNameArray[itemNumbers]);
 						setImageViewListener(itemNumbers);
 					}
 					break;
@@ -322,7 +320,7 @@ public class MainActivity extends Activity {
 		if (itemNumbers == 0) {
 			FavoriteMethod.changeView(activity, SettingActivity.class);			
 		} else {
-			IntentBundleManager.changeViewToContectActivity(activity, stringArray[itemNumbers]);
+			IntentBundleManager.changeViewToContectActivity(activity, titleNameArray[itemNumbers]);
 		}
 	}
 	
