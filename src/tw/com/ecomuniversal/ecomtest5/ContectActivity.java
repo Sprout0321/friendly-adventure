@@ -31,7 +31,7 @@ public class ContectActivity extends Activity {
 	private ImageView imageView3_1, imageView3_2, imageView4;
 	private TextView textView3, textView3_2, textView4;
 	private String receiveString;
-//    private final String[] stringArray2 = {"1","2"};
+    private final String[] stringArray25232323 = {"1","2"};
     private Integer itemNumbers = 0;
     
     @Override
