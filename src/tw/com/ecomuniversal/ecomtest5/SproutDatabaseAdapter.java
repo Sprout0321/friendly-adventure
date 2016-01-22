@@ -47,7 +47,7 @@ public class SproutDatabaseAdapter {
 	
 	public Cursor getAllData() {
 		SQLiteDatabase sQLiteDatabase = sproutSQLiteOpenHelper.getWritableDatabase();
-		// SELECT _ID, Group, Color, Check FROM SproutTable1
+		// SELECT _ID, titleName, groupNumber, colorName, checkTrue FROM SproutTable1
 		String[] columnsArray = {SproutSQLiteOpenHelper.UID,
 				SproutSQLiteOpenHelper.TITLE,
 				SproutSQLiteOpenHelper.GROUP,
@@ -76,47 +76,47 @@ public class SproutDatabaseAdapter {
 	}
 	
 	public Cursor getTrueData() {
-		// SELECT _ID, Color FROM SproutTable1 WHERE check=?
+		// SELECT _ID, titleName, colorName FROM SproutTable1 WHERE checkTrue=?
 		SQLiteDatabase sQLiteDatabase = sproutSQLiteOpenHelper.getWritableDatabase();
 		String[] columnsArray = {SproutSQLiteOpenHelper.UID,
 				SproutSQLiteOpenHelper.TITLE,
 				SproutSQLiteOpenHelper.COLOR};
 		String selectionString = SproutSQLiteOpenHelper.CHECK + " =?";
-		String[] selectionArray = {"1"};
-
+		String[] selectionArray = {booleanToString(true)};
 		Cursor cursor = sQLiteDatabase.query(SproutSQLiteOpenHelper.TABLE_NAME,
 				columnsArray, selectionString, selectionArray,
 				null, null, null);
-		
-//		StringBuffer stringBuffer = new StringBuffer();
-//		Integer count = cursor.getCount();
-//		Log.i(TAG + " > getTrueData()", "count = " + count.toString());
-//		while (cursor.moveToNext()) {
-//			Integer index_id = cursor.getColumnIndex(SproutSQLiteOpenHelper.UID);
-//			Integer index_titleName = cursor.getColumnIndex(SproutSQLiteOpenHelper.TITLE);
-//			Integer index_colorName = cursor.getColumnIndex(SproutSQLiteOpenHelper.COLOR);
-//			
-//			Integer _id = cursor.getInt(index_id);
-//			String titleName = cursor.getString(index_titleName);
-//			String colorName = cursor.getString(index_colorName);
-//			
-//			stringBuffer.append(_id + " " + titleName + " " + colorName + "\n");
-//		}
-//		Log.i(TAG + " > getTrueData()", "stringBuffer.toString() = " + stringBuffer.toString());
-//		
 		return cursor;
 	}
 	
-	public String getData(String groupName, String colorName, String checkTrue) {
-		// SELECT _ID FROM SproutTable1 WHERE group=? AND color=? AND check=?
+	public Cursor getGroupData(Integer group) {
+		// SELECT _ID, titleName, colorName, checkTrue FROM SproutTable1 WHERE groupNumber=?
+		SQLiteDatabase sQLiteDatabase = sproutSQLiteOpenHelper.getWritableDatabase();
+		String[] columnsArray = {SproutSQLiteOpenHelper.UID,
+				SproutSQLiteOpenHelper.TITLE,
+				SproutSQLiteOpenHelper.COLOR,
+				SproutSQLiteOpenHelper.CHECK};
+		String selectionString = SproutSQLiteOpenHelper.GROUP + " =?";
+		String[] selectionArray = {group.toString()};
+		Cursor cursor = sQLiteDatabase.query(SproutSQLiteOpenHelper.TABLE_NAME,
+				columnsArray, selectionString, selectionArray,
+				null, null, null);
+		return cursor;
+	}
+	
+	public String getID(String titleName, Integer groupNumber, String colorName, Boolean checkTrue) {
+		// SELECT _ID FROM SproutTable1 WHERE titleName=? AND groupNumber=? AND colorName=? AND checkTrue=?
 		SQLiteDatabase sqlDatabase = sproutSQLiteOpenHelper.getWritableDatabase();
 		
 		String[] columnsArray = {SproutSQLiteOpenHelper.UID};
-		String selectionString = SproutSQLiteOpenHelper.GROUP + " =? AND "
+		String selectionString = SproutSQLiteOpenHelper.TITLE + " =? AND "
+				+ SproutSQLiteOpenHelper.GROUP + " =? AND "
 				+ SproutSQLiteOpenHelper.COLOR + " =? AND "
 				+ SproutSQLiteOpenHelper.CHECK + " =?";
-		String[] selectionArray = {groupName, colorName, checkTrue};
-		
+		String[] selectionArray = {titleName,
+				groupNumber.toString(),
+				colorName,
+				booleanToString(checkTrue)};
 		Cursor cursor = sqlDatabase.query(SproutSQLiteOpenHelper.TABLE_NAME,
 				columnsArray, selectionString, selectionArray,
 				null, null, null);
@@ -128,6 +128,12 @@ public class SproutDatabaseAdapter {
 		}
 		Log.i(TAG + " > getData()", "stringBuffer.toString() = " + stringBuffer.toString());
 		return stringBuffer.toString();
+	}
+	
+	private String booleanToString(Boolean myBoolean) {
+		Integer booleanInteger = Boolean.valueOf(myBoolean).compareTo(false);
+		String booleanString = booleanInteger.toString();
+		return booleanString;
 	}
 	
 	static class SproutSQLiteOpenHelper extends SQLiteOpenHelper {

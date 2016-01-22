@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,13 +34,26 @@ public class SettingActivity extends Activity {
 	private ImageView imageView1_1_2, imageView1_2_1_n_1_1_2;
 	private TextView textView1_1_1, textView1_1_3, textView1_2_1_n, textView1_2_1_n_1_1_3;
 	
+	//資料元件
+	private SproutDatabaseAdapter sproutDatabaseAdapter;
+	private Cursor sproutTable1Cursor;
+	
 	private final String[] stringArray = {"1","2","3","4","5"};
     private final String[] stringArray2 = {"一", "二", "三", "四"};
-    private Integer itemNumbers = 0;
+    private Integer itemNumbers;
+
+	// 表格欄位名稱: _ID, titleName, groupNumber, colorName, checkTrue
+    private static final String UID = "_ID";
+	private static final String TITLE = "titleName";
+	private static final String COLOR = "colorName";
+	private static final String CHECK = "checkTrue";
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+		// 以輔助類獲得資料庫對象
+		sproutDatabaseAdapter = new SproutDatabaseAdapter(context);
+		
         SharedPreferencesManager.saveFirstTime(context, "false");
         relativeLayout1 = new RelativeLayout(activity);
 		RelativeLayout.LayoutParams newLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
@@ -173,40 +187,48 @@ public class SettingActivity extends Activity {
 	}
 	
 	private void createLinearLayout1_2_1() {
+		// 垂直的LinearLayout, 裡面放了四個元件
 		linearLayout1_2_1 = new LinearLayout(activity);
 		linearLayout1_2_1.setOrientation(LinearLayout.VERTICAL);
 		LinearLayout.LayoutParams newLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		linearLayout1_2_1.setLayoutParams(newLayoutParams);
-		
 		scrollView1_2.addView(linearLayout1_2_1);
 		
+		// Group1
+		itemNumbers = 0;
 		createTextView1_2_1_n("Function1");
-		
-		Integer linearLayout1_2_1_nNumber = stringArray.length/3;
-    	Integer lastImageViewNumber = stringArray.length%3;
+		sproutTable1Cursor = sproutDatabaseAdapter.getGroupData(1);
+		Integer tableRowNumber = sproutTable1Cursor.getCount();
+		Integer linearLayout1_2_1_nNumber = tableRowNumber/3;
+    	Integer lastImageViewNumber = tableRowNumber%3;
 		for (int i = 0; i < linearLayout1_2_1_nNumber; i++) {
-			createLinearLayout1_2_1_n(stringArray, 3);
+			createLinearLayout1_2_1_n(3);
 		}						
 		if (lastImageViewNumber != 0) {
-			createLinearLayout1_2_1_n(stringArray,lastImageViewNumber);
+			createLinearLayout1_2_1_n(lastImageViewNumber);
 		} else {
 			//Do Nothing
 		}
-		createTextView1_2_1_n("Function2");
 		
-		linearLayout1_2_1_nNumber = stringArray2.length/3;
-    	lastImageViewNumber = stringArray2.length%3;
+		// Group2
+		itemNumbers = 0;
+		createTextView1_2_1_n("Function2");
+		sproutTable1Cursor = sproutDatabaseAdapter.getGroupData(2);
+		tableRowNumber = sproutTable1Cursor.getCount();
+		linearLayout1_2_1_nNumber = tableRowNumber/3;
+    	lastImageViewNumber = tableRowNumber%3;
 		for (int i = 0; i < linearLayout1_2_1_nNumber; i++) {
-			createLinearLayout1_2_1_n(stringArray2, 3);
+			createLinearLayout1_2_1_n(3);
 		}
 		if (lastImageViewNumber != 0) {
-			createLinearLayout1_2_1_n(stringArray2,lastImageViewNumber);
+			createLinearLayout1_2_1_n(lastImageViewNumber);
 		} else {
 			//Do Nothing
 		}
 	}
 	
 	private void createTextView1_2_1_n(String text) {
+		// 放"Function1"標題用
 		textView1_2_1_n = new TextView(activity);
 		LayoutParams newLayoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		textView1_2_1_n.setLayoutParams(newLayoutParams);
@@ -219,7 +241,8 @@ public class SettingActivity extends Activity {
     	textView1_2_1_n.setLayoutParams(textViewLayoutParams);
 	}
 	
-	private void createLinearLayout1_2_1_n(String[] stringArray, Integer imageViewNumber) {
+	private void createLinearLayout1_2_1_n(Integer imageViewNumber) {
+		//這個水平LinearLayout裡面會放3個RelativeLayout(最後1排會不滿3個)
 		linearLayout1_2_1_n = new LinearLayout(activity);
 		linearLayout1_2_1_n.setOrientation(LinearLayout.HORIZONTAL);
 		LinearLayout.LayoutParams newLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -227,23 +250,25 @@ public class SettingActivity extends Activity {
 		linearLayout1_2_1.addView(linearLayout1_2_1_n);
 		
 		for (int i = 0; i < imageViewNumber; i++) {
-			createRelativeLayout1_2_1_n_1(i);
+			createRelativeLayout1_2_1_n_1();
 		}
 	}
 	
-	private void createRelativeLayout1_2_1_n_1(Integer position) {
+	private void createRelativeLayout1_2_1_n_1() {
+		// 寬度維持在螢幕寬度1/3的RelativeLayout
 		relativeLayout1_2_1_n_1 = new RelativeLayout(activity);
 		Integer width = getRelativeLayout5Width(getScreenWidth());
 		Integer height = width * 4/3;
 		RelativeLayout.LayoutParams newLayoutParams = new RelativeLayout.LayoutParams(width, height);
 		relativeLayout1_2_1_n_1.setLayoutParams(newLayoutParams);
-		createRelativeLayout1_2_1_n_1_1(position);
+		createRelativeLayout1_2_1_n_1_1();
 		linearLayout1_2_1_n.addView(relativeLayout1_2_1_n_1);
 	}
 
 	@SuppressWarnings("deprecation")
 	@SuppressLint("NewApi")
-	private void createRelativeLayout1_2_1_n_1_1(Integer position) {
+	private void createRelativeLayout1_2_1_n_1_1() {
+		// 外圍黑色框框
 		relativeLayout1_2_1_n_1_1 = new RelativeLayout(activity);
 		GradientDrawable border = new GradientDrawable();
 		border.setColor(0x00FFFFFF); // white background
@@ -261,8 +286,9 @@ public class SettingActivity extends Activity {
 		relativeLayout1_2_1_n_1.addView(relativeLayout1_2_1_n_1_1);
 		
 		createCheckBox1_2_1_n_1_1_1();
-		createImageView1_2_1_n_1_1_2(position);
-		createTextView1_2_1_n_1_1_3(position);
+		createImageView1_2_1_n_1_1_2();
+		createTextView1_2_1_n_1_1_3();
+		itemNumbers++;
 	}
 	
 	private void createCheckBox1_2_1_n_1_1_1() {
@@ -270,6 +296,13 @@ public class SettingActivity extends Activity {
 		checkBox.setId(1210111);
 		checkBox.setScaleX(0.8f);
 		checkBox.setScaleY(0.8f);
+		sproutTable1Cursor.moveToPosition(itemNumbers);
+		Integer index_id = sproutTable1Cursor.getColumnIndex(UID);
+		Integer index_checkTrue = sproutTable1Cursor.getColumnIndex(CHECK);
+		Integer _id = sproutTable1Cursor.getInt(index_id);
+		Boolean checkTrue = sproutTable1Cursor.getInt(index_checkTrue) > 0;
+		checkBox.setChecked(checkTrue);
+		checkBox.setId(_id);
 		relativeLayout1_2_1_n_1_1.addView(checkBox);
 		RelativeLayout.LayoutParams checkBoxLayoutParams = (RelativeLayout.LayoutParams) checkBox.getLayoutParams();
 		checkBoxLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
@@ -279,16 +312,19 @@ public class SettingActivity extends Activity {
 		checkBox.setLayoutParams(checkBoxLayoutParams);
 	}
 
-	private void createImageView1_2_1_n_1_1_2(Integer position) {
+	private void createImageView1_2_1_n_1_1_2() {
 		imageView1_2_1_n_1_1_2 = new ImageView(activity);
-		switch (position) {
-		case 0:
+		sproutTable1Cursor.moveToPosition(itemNumbers);
+		Integer index_colorName = sproutTable1Cursor.getColumnIndex(COLOR);
+		String colorName = sproutTable1Cursor.getString(index_colorName);
+		switch (colorName) {
+		case "R":
 			imageView1_2_1_n_1_1_2.setBackgroundResource(R.drawable.shape_r);
 			break;
-		case 1:
+		case "G":
 			imageView1_2_1_n_1_1_2.setBackgroundResource(R.drawable.shape_g);
 			break;
-		case 2:
+		case "B":
 			imageView1_2_1_n_1_1_2.setBackgroundResource(R.drawable.shape_b);
 			break;
 		default:
@@ -302,14 +338,16 @@ public class SettingActivity extends Activity {
     	imageViewLayoutParams.width = getImageView6Width(getScreenWidth());
     	imageViewLayoutParams.height = getImageView6Width(getScreenWidth());
     	imageView1_2_1_n_1_1_2.setLayoutParams(imageViewLayoutParams);
-    	imageView1_2_1_n_1_1_2.setOnTouchListener(getImageViewOnTouchListener(position, imageView1_2_1_n_1_1_2));
+//    	imageView1_2_1_n_1_1_2.setOnTouchListener(getImageViewOnTouchListener(position, imageView1_2_1_n_1_1_2));
 	}
 	
-	private void createTextView1_2_1_n_1_1_3(Integer position) {
+	private void createTextView1_2_1_n_1_1_3() {
 		textView1_2_1_n_1_1_3 = new TextView(activity);
 		textView1_2_1_n_1_1_3.setId(1003);
-		textView1_2_1_n_1_1_3.setText(stringArray[itemNumbers]);			
-//		itemNumbers++;
+		sproutTable1Cursor.moveToPosition(itemNumbers);
+		Integer index_titleName = sproutTable1Cursor.getColumnIndex(TITLE);
+		String titleName = sproutTable1Cursor.getString(index_titleName);
+		textView1_2_1_n_1_1_3.setText(titleName);
     	textView1_2_1_n_1_1_3.setTextSize(30f);
     	textView1_2_1_n_1_1_3.setTextColor(0xFF9FA0FF);
     	textView1_2_1_n_1_1_3.setGravity(Gravity.CENTER);

@@ -140,7 +140,7 @@ public class MainActivity extends Activity {
 		imageView3_1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-//				sproutDatabaseAdapter.getTrueData();
+				// TODO
 			}
 		});
     	
@@ -160,8 +160,7 @@ public class MainActivity extends Activity {
     	imageView3_2.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-//				sproutDatabaseAdapter.getData("1", "R", "false");
-//				sproutDatabaseAdapter.getAllData();
+				//TODO
 			}
 		});
 	}
@@ -224,13 +223,14 @@ public class MainActivity extends Activity {
 		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(width, height);
 		relativeLayout5.setLayoutParams(layoutParams);
 		
-		createImageView6(position);
-		createTextView6(position);
+		createImageView6();
+		createTextView6();
+		itemNumbers++;
     	
     	linearLayout4.addView(relativeLayout5);
 	}
 
-	private void createImageView6(Integer position) {
+	private void createImageView6() {
 		imageView6 = new ImageView(activity);
 		sproutTable1Cursor.moveToPosition(itemNumbers);
 		Integer index_colorName = sproutTable1Cursor.getColumnIndex(COLOR);
@@ -258,7 +258,7 @@ public class MainActivity extends Activity {
 //    	imageView6.setOnTouchListener(getImageViewOnTouchListener(itemNumbers, imageView6));
 	}
 	
-	private void createTextView6(Integer position) {
+	private void createTextView6() {
 		textView6 = new TextView(activity);
 //    	textView6.setText(titleNameArray[itemNumbers]);
 		sproutTable1Cursor.moveToPosition(itemNumbers);
@@ -272,8 +272,7 @@ public class MainActivity extends Activity {
     	RelativeLayout.LayoutParams textViewLayoutParams = (RelativeLayout.LayoutParams)textView6.getLayoutParams();
     	textViewLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
     	textViewLayoutParams.setMargins(0, 0, 0, 0);
-    	textView6.setLayoutParams(textViewLayoutParams); 	
-    	itemNumbers++;
+    	textView6.setLayoutParams(textViewLayoutParams);
 	}
 
 //	private ImageView.OnClickListener getImageViewOnClickListener(final Integer itemNumbers) {
